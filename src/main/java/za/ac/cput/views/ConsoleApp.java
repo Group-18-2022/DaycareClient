@@ -17,13 +17,14 @@ public class ConsoleApp
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
 
-    public void post(Object ei, String createUrl) //pass the url from the Controller class for post/create
+    public void post(Object o, String createUrl) //pass the url from the Controller class for post/create
+    //The o object is the whatever class object you are posting eg. Principal object, Child object, etc.
     {
         try
         {
             final String URL = createUrl;
             Gson g = new Gson();
-            String jsonString = g.toJson(ei);
+            String jsonString = g.toJson(o);
 
             RequestBody body = RequestBody.create(JSON, jsonString);
             Request request = new Request.Builder()
