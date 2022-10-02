@@ -1,4 +1,4 @@
-package za.ac.cput.views;
+package za.ac.cput.views.consoleapp;
 
 import com.google.gson.Gson;
 import okhttp3.*;
@@ -95,12 +95,12 @@ public class ConsoleApp
                 Gson g = new Gson();
                 Object o = g.fromJson(identity.toString(), Object.class);
                 objectList.add(o);
-                System.out.println(o.toString());
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        System.out.println(objectList);
         return objectList;
     }
 
