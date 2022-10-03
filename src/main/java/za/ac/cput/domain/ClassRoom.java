@@ -8,28 +8,32 @@ import javax.validation.constraints.NotNull;
 public class ClassRoom
 {
     @Id
-    private String classroomId;
+    private String classroomNumber;
     @NotNull
-    private String roomNumber;
+    private String occupancy;
 
 
     private ClassRoom(Builder builder)
     {
-        this.classroomId = builder.classroomId;
-        this.roomNumber = builder.roomNumber;
+        this.classroomNumber = builder.classroomId;
+        this.occupancy = builder.roomNumber;
     }
 
     protected ClassRoom(){}
 
-    public String getRoomNumber() {
-        return roomNumber;
+    public String getOccupancy() {
+        return occupancy;
+    }
+
+    public String getClassroomNumber() {
+        return classroomNumber;
     }
 
     @Override
     public String toString() {
         return "ClassRoom{" +
-                "classroomId='" + classroomId + '\'' +
-                ", roomNumber='" + roomNumber + '\'' +
+                "classroomId='" + classroomNumber + '\'' +
+                ", roomNumber='" + occupancy + '\'' +
                 '}';
     }
 
@@ -52,8 +56,8 @@ public class ClassRoom
 
         public Builder copy(ClassRoom crm)
         {
-            this.classroomId = crm.classroomId;
-            this.roomNumber = crm.roomNumber;
+            this.classroomId = crm.classroomNumber;
+            this.roomNumber = crm.occupancy;
             return  this;
 
         }

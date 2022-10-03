@@ -19,11 +19,11 @@ public class Child {
     @NotNull
     private String lastName;
     @NotNull
-    private String Address;
+    private String address;
     @NotNull
-    private String DOB;
+    private String dob;
     @NotNull
-    private String Gender;
+    private String gender;
 
     protected Child(){
     }
@@ -31,9 +31,9 @@ public class Child {
         this.childID = build.childID;
         this.firstName = build.firstName;
         this.lastName = build.lastName;
-        this.Address = build.Address;
-        this.DOB = build.DOB;
-        this.Gender = build.Gender;
+        this.address = build.Address;
+        this.dob = build.DOB;
+        this.gender = build.Gender;
     }
 
     public String getChildID() {
@@ -49,15 +49,15 @@ public class Child {
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
-    public String getDOB() {
-        return DOB;
+    public String getDob() {
+        return dob;
     }
 
     public String getGender() {
-        return Gender;
+        return gender;
     }
 
     @Override
@@ -66,9 +66,9 @@ public class Child {
                 "childID: '" + childID + '\'' +
                 ", firstName: '" + firstName + '\'' +
                 ", lastName: '" + lastName + '\'' +
-                ", Address: '" + Address + '\'' +
-                ", DOB: '" + DOB + '\'' +
-                ", Gender: '" + Gender + '\'' +
+                ", Address: '" + address + '\'' +
+                ", DOB: '" + dob + '\'' +
+                ", Gender: '" + gender + '\'' +
                 '}';
     }
     public static class childBuilder{
@@ -113,9 +113,9 @@ public class Child {
             this.childID = child.childID;
             this.firstName = child.firstName;
             this.lastName = child.lastName;
-            this.Address = child.Address;
-            this.DOB = child.DOB;
-            this.Gender = child.Gender;
+            this.Address = child.address;
+            this.DOB = child.dob;
+            this.Gender = child.gender;
             return this;
         }
         public Child build(){
