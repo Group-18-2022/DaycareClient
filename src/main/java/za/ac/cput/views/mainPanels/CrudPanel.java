@@ -1,7 +1,10 @@
 package za.ac.cput.views.mainPanels;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CrudPanel
 {
@@ -21,11 +24,12 @@ public class CrudPanel
 
     private JLabel createLbl, updateLbl, readLbl;
 
-    private JButton createButton, updateButton, deleteButton;
+    private JButton createButton, updateButton, deleteButton, refreshButton;
 
     public CrudPanel()
     {
         mainPanel = new JPanel();
+        mainPanel.setPreferredSize(new Dimension(700, 550));
         createUpdatePanel = new JPanel();
         readPanel = new JPanel();
         createPanel = new JPanel();
@@ -38,6 +42,7 @@ public class CrudPanel
         updateButtonPanel = new JPanel();
         tableLblPanel = new JPanel();
         tablePanel = new JPanel();
+        tablePanel.setPreferredSize(new Dimension(350, 100));
         tableButtonPanel = new JPanel();
         createLbl = new JLabel("Create");
         updateLbl = new JLabel("Update");
@@ -45,9 +50,10 @@ public class CrudPanel
         createButton = new JButton("create");
         updateButton = new JButton("update");
         deleteButton = new JButton("delete");
+        refreshButton = new JButton("refresh");
     }
 
-    public JPanel crudSetUp(JPanel panelCreate, JPanel panelUpdate, JPanel panelTable)
+    public JPanel crudSetUp(JPanel panelCreate, JPanel panelTable)
     {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
         mainPanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.red));
@@ -59,7 +65,7 @@ public class CrudPanel
         readPanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.blue));
 
         createPanel.setLayout(new BoxLayout(createPanel, BoxLayout.PAGE_AXIS));
-        createPanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.black));
+        createPanel.setBorder(BorderFactory.createMatteBorder(7, 4, 4, 4, Color.GREEN));
 
         updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.PAGE_AXIS));
         updatePanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.black));
@@ -68,7 +74,7 @@ public class CrudPanel
         mainPanel.add(readPanel);
 
         createUpdatePanel.add(createPanel);
-        createUpdatePanel.add(updatePanel);
+        //createUpdatePanel.add(updatePanel);
 
         readPanel.add(tableLblPanel);
         readPanel.add(tablePanel);
@@ -84,16 +90,24 @@ public class CrudPanel
 
         tableLblPanel.add(readLbl);
         tablePanel.add(panelTable);
+        tableButtonPanel.add(refreshButton);
+        tableButtonPanel.add(updateButton);
         tableButtonPanel.add(deleteButton);
 
         createLblPanel.add(createLbl);
-        createCenterPanel.add(panelCreate);
-        createButtonPanel.add(createButton);
 
-        updateLblPanel.add(updateLbl);
-        updateCenterPanel.add(panelUpdate);
-        updateButtonPanel.add(updateButton);
+        createCenterPanel.setLayout(new GridLayout(1, 1));
+        createCenterPanel.add(panelCreate);
+        createCenterPanel.setPreferredSize(new Dimension(200, 190));
+        createCenterPanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.GRAY));
+
+        createButtonPanel.add(createButton);
 
         return mainPanel;
     }
+    public void createBtnAddActionListener(ActionListener al) {
+        createButton.addActionListener(al);
+    }
+
+
 }

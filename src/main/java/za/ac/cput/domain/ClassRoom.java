@@ -15,8 +15,8 @@ public class ClassRoom
 
     private ClassRoom(Builder builder)
     {
-        this.classroomNumber = builder.classroomId;
-        this.occupancy = builder.roomNumber;
+        this.classroomNumber = builder.occupancy;
+        this.occupancy = builder.occupancy;
     }
 
     protected ClassRoom(){}
@@ -41,23 +41,23 @@ public class ClassRoom
 
     public static class Builder
     {
-        private String classroomId;
         private String roomNumber;
+        private String occupancy;
 
         public Builder setClassroomId(String classroomId) {
-            this.classroomId = classroomId;
+            this.occupancy = classroomId;
             return  this;
         }
 
-        public Builder setRoomNumber(String roomNumber) {
-            this.roomNumber = roomNumber;
+        public Builder setOccupancy(String occupancy) {
+            this.occupancy = occupancy;
             return this;
         }
 
         public Builder copy(ClassRoom crm)
         {
-            this.classroomId = crm.classroomNumber;
-            this.roomNumber = crm.occupancy;
+            this.occupancy = crm.classroomNumber;
+            this.occupancy = crm.occupancy;
             return  this;
 
         }

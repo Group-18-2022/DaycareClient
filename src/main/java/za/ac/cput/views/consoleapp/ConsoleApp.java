@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import za.ac.cput.domain.ClassRoom;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,6 +76,7 @@ public class ConsoleApp
     }
     public static List<Object> getAll(String allUrl) //pass the url from the Controller class for findAll/getAll
     {
+
         List<Object> objectList = new ArrayList<>();
         try
         {
@@ -93,14 +95,13 @@ public class ConsoleApp
             for (int i =0; i<identities.length(); i++) {
                 JSONObject identity = identities.getJSONObject(i);
                 Gson g = new Gson();
-                Object o = g.fromJson(identity.toString(), Object.class);
+                Object o = g.fromJson(identity.toString(), ClassRoom.class);
                 objectList.add(o);
-
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(objectList);
+        //System.out.println(objectList);
         return objectList;
     }
 
