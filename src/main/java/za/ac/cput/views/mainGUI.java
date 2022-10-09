@@ -4,8 +4,10 @@ import za.ac.cput.views.UIclasses.ClassroomUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class mainGUI
+public class mainGUI extends JFrame implements ActionListener
 {
     private Frame mainFrame;
     private JPanel mainPanel;
@@ -14,22 +16,30 @@ public class mainGUI
     {
         mainFrame = new Frame();
         mainPanel = new JPanel();
-    }
 
-    public void setUp()
-    {
         ClassroomUI cr = new ClassroomUI();
+        add(cr.classRoomSetUp());
 
-        mainPanel.add(cr.classRoomSetUp());
 
         mainFrame.add(mainPanel);
-        mainFrame.pack();
-        mainFrame.setLocationRelativeTo(null);
-        //mainFrame.setSize(750, 620);
-        mainFrame.setVisible(true);
+        pack();
+        setLocationRelativeTo(null);
+        setSize(950, 700);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {
-        new mainGUI().setUp();
+        new mainGUI();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getActionCommand() == "create")
+        {
+            System.out.println("hahahahaha");
+        }
+
     }
 }

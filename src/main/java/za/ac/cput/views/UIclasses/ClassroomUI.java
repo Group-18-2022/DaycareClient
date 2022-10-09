@@ -1,16 +1,29 @@
 package za.ac.cput.views.UIclasses;
 
+import com.google.gson.Gson;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import za.ac.cput.domain.ClassRoom;
+import za.ac.cput.factory.ClassRoomFactory;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ClassroomUI
+public class ClassroomUI implements ActionListener
 {
+    private static OkHttpClient client = new OkHttpClient();
     private JLabel roomNumberLbl, occupancyLbl;
     private JTextField roomNumberField, occupancyField;
     private JPanel roomPanel, occupancyPanel;
@@ -21,7 +34,8 @@ public class ClassroomUI
 
     private JPanel classRoomTablePanel;
     private JPanel createClassRoomPanel;
-    private JPanel updateClassRoomPanel;
+
+    private CrudPanel crudPanel = new CrudPanel();
 
     public ClassroomUI()
     {
@@ -38,37 +52,78 @@ public class ClassroomUI
         occupancyPanel = new JPanel();
         classRoomTablePanel = new JPanel();
         createClassRoomPanel = new JPanel();
-        updateClassRoomPanel = new JPanel();
-    }
 
+        crudPanel.createBtnAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if (e.getActionCommand() == "create")
+                {
+                    System.out.println("ahahahaha");
+                    String roomNumber = roomNumberField.getText();
+                    String occupancy = occupancyField.getText();
+
+                    ClassRoom  cr = ClassRoomFactory.build(roomNumber, occupancy);
+                    new ConsoleApp().post(cr, "http://localhost:8080/api/v1/day-care/classroom/save");
+                }
+                if (e.getActionCommand() == "refresh")
+                {
+                   createTable();
+                }
+
+            }
+        });
+    }
     public JPanel classRoomSetUp()
     {
         createTable();
 
-        roomPanel.setLayout(new BoxLayout(roomPanel, BoxLayout.LINE_AXIS));
-        occupancyPanel.setLayout(new BoxLayout(occupancyPanel, BoxLayout.LINE_AXIS));
-        createClassRoomPanel.setLayout(new BoxLayout(createClassRoomPanel, BoxLayout.PAGE_AXIS));
+        roomPanel.setLayout(new GridLayout(1, 2));
+        occupancyPanel.setLayout(new GridLayout(1, 2));
+
+        createClassRoomPanel.setLayout(new GridLayout(10, 2));
         createClassRoomPanel.add(roomPanel);
         createClassRoomPanel.add(occupancyPanel);
-
-        updateClassRoomPanel.setLayout(new BoxLayout(updateClassRoomPanel, BoxLayout.PAGE_AXIS));
-        updateClassRoomPanel.add(roomPanel);
-        updateClassRoomPanel.add(occupancyPanel);
 
         roomPanel.add(roomNumberLbl);
         roomPanel.add(roomNumberField);
         occupancyPanel.add(occupancyLbl);
         occupancyPanel.add(occupancyField);
 
-
         classRoomTablePanel.add(newPane);
 
-        CrudPanel crudPanel = new CrudPanel();
+        JPanel crud = crudPanel.crudSetUp(createClassRoomPanel, classRoomTablePanel);
+        //crud.setPreferredSize(new Dimension(500, 100));
+        return crud;
 
-        return crudPanel.crudSetUp(createClassRoomPanel, updateClassRoomPanel, classRoomTablePanel);
+
     }
+    public static List<Object> getAll(String allUrl) //pass the url from the Controller class for findAll/getAll
+    {
+        List<Object> objectList = new ArrayList<>();
+        try
+        {
+            String URL = allUrl;
 
+            Request request = new Request.Builder()
+                    .url(URL)
+                    .build();
+            Response response = client.newCall(request).execute();
+            String responseBod = response.body().string();
+            JSONArray identities = new JSONArray(responseBod);
 
+            for (int i =0; i<identities.length(); i++)
+            {
+                JSONObject identity = identities.getJSONObject(i);
+                Gson g = new Gson();
+                Object o = g.fromJson(identity.toString(), ClassRoom.class);
+                objectList.add(o);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return objectList;
+    }
     public void createTable()
     {
         try
@@ -77,10 +132,11 @@ public class ClassroomUI
             tableModel = new DefaultTableModel(columns , 0);
             classRoomTable = new JTable(tableModel);
             newPane.setViewportView(classRoomTable);
+            newPane.setPreferredSize(new Dimension(750, 100));
 
-            List classRoomList = ConsoleApp.getAll("http://localhost:8080/api/v1/day-care/classroom/all/");
-
-            List<ClassRoom> classRoomList1 =  (List<ClassRoom>) classRoomList;
+            List classRoomList = getAll("http://localhost:8080/api/v1/day-care/classroom/all");
+            List<ClassRoom> classRoomList1 =  classRoomList;
+            System.out.println(classRoomList.get(1));
 
             for(int i = 0; i < classRoomList.size(); i++ )
             {
@@ -94,6 +150,12 @@ public class ClassroomUI
         }
     }
 
-
-
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getActionCommand() == "create")
+        {
+            System.out.println("hahahahaha");
+        }
+    }
 }
