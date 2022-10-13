@@ -15,7 +15,7 @@ public class ClassRoom
 
     private ClassRoom(Builder builder)
     {
-        this.classroomNumber = builder.occupancy;
+        this.classroomNumber = builder.roomNumber;
         this.occupancy = builder.occupancy;
     }
 
@@ -45,7 +45,7 @@ public class ClassRoom
         private String occupancy;
 
         public Builder setClassroomId(String classroomId) {
-            this.occupancy = classroomId;
+            this.roomNumber = classroomId;
             return  this;
         }
 

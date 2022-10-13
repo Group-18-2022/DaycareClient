@@ -5,15 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6eaaffaa-3e73-4b28-98c1-1f101e010994" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/consoleapp/fakeGui.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/fakeGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/domain/ClassRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/domain/ClassRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/factory/ClassRoomFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/factory/ClassRoomFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/ClassroomUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/ClassroomUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/consoleapp/ConsoleApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/consoleapp/ConsoleApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/components/Loader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/components/Loader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/CrudPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/CrudPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/za/ac/cput/views/fakeGUI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/PrincipalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/PrincipalPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/SecretaryPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/SecretaryPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/TeacherPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/TeacherPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/za/ac/cput/views/ConsoleApp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/za/ac/cput/AppTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/za/ac/cput/AppTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +82,7 @@
   <component name="RunManager" selected="Application.mainGUI">
     <configuration name="Loader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="za.ac.cput.views.components.Loader" />
-      <module name="PayrollClient" />
+      <module name="DaycareClient" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="za.ac.cput.views.components.*" />
@@ -132,8 +135,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.mainGUI" />
-        <item itemvalue="Application.fakeGui" />
         <item itemvalue="Application.Loader" />
+        <item itemvalue="Application.fakeGui" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
