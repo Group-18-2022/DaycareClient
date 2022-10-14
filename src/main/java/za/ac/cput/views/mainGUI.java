@@ -1,5 +1,6 @@
 package za.ac.cput.views;
 
+import za.ac.cput.views.UIclasses.ChildUI;
 import za.ac.cput.views.UIclasses.ClassroomUI;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
 import za.ac.cput.views.mainPanels.SecretaryPanel;
@@ -20,9 +21,12 @@ public class mainGUI extends JFrame
         mainFrame = new Frame();
         mainPanel = new JPanel();
 
-        ClassroomUI cr = new ClassroomUI();
-        add(cr.classRoomSetUp());
+        //ClassroomUI cr = new ClassroomUI();
+        //add(cr.classRoomSetUp());
         //dispose();
+
+        ChildUI cui = new ChildUI();
+        add(cui.childSetUp());
 
         //setUpUser(3);
 

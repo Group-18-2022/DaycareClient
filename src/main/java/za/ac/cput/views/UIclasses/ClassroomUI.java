@@ -44,6 +44,9 @@ public class ClassroomUI {
     private CrudPanel crudPanel;
 
     private ClassRoom cr;
+    ClassRoom cRoom;
+
+    private int numOfRows=0;
 
     public ClassroomUI()
     {
@@ -54,6 +57,8 @@ public class ClassroomUI {
         occupancyField = new JTextField();
 
         classRoomTable = new JTable();
+        String columns [] = {"Classroom Number", "Max Occupancy"};
+        tableModel = new DefaultTableModel(columns , 0);
         newPane = new JScrollPane();
 
         roomPanel = new JPanel();
@@ -63,9 +68,8 @@ public class ClassroomUI {
 
         crudPanel = new CrudPanel();
 
+        modelListenerMethod();
         actionListenerMethod();
-
-
     }
     public JPanel classRoomSetUp()
     {
@@ -87,7 +91,6 @@ public class ClassroomUI {
         classRoomTablePanel.add(newPane);
 
         crud = crudPanel.crudSetUp(createClassRoomPanel, classRoomTablePanel);
-        //crud.setPreferredSize(new Dimension(500, 100));
         return crud;
     }
 
@@ -122,8 +125,6 @@ public class ClassroomUI {
     {
         try
         {
-            String columns [] = {"Classroom Number", "Max Occupancy"};
-            tableModel = new DefaultTableModel(columns , 0);
             classRoomTable = new JTable(tableModel);
             newPane.setViewportView(classRoomTable);
             newPane.setPreferredSize(new Dimension(900, 200));
@@ -159,6 +160,41 @@ public class ClassroomUI {
         return newClassroom;
     }
 
+    public void createTableModelListener(TableModelListener tml)
+    {
+        tableModel.addTableModelListener(tml);
+    }
+
+    public void modelListenerMethod()
+    {
+        createTableModelListener(new TableModelListener()
+        {
+            @Override
+            public void tableChanged(TableModelEvent e)
+            {
+                tableModel.addTableModelListener(this);
+                int firstRow = e.getFirstRow();
+
+                String roomNumber = "";
+                String occupiedRooms = "";
+
+                    for(int j = 0; j < classRoomTable.getColumnCount();j++)
+                    {
+                        if(j==0)
+                        {
+                            roomNumber =  classRoomTable.getModel().getValueAt(firstRow ,j).toString();
+                        }
+                        if(j==1)
+                        {
+                            occupiedRooms = classRoomTable.getModel().getValueAt(firstRow ,j).toString();
+                        }
+                    }
+                    cRoom = ClassRoomFactory.build(roomNumber, occupiedRooms);
+        }});
+
+        System.out.println(cRoom);
+    }
+
     public void createMouseListener(MouseListener ml)
     {
         classRoomTable.addMouseListener(ml);
@@ -181,36 +217,120 @@ public class ClassroomUI {
             @Override
             public void mouseExited(MouseEvent e) {}
         });
-
     }
+
+    public String validateStrings()
+    {
+        String stringRegex = "^[a-zA-Z]*$";
+        return stringRegex;
+    }
+    public String validateNumbers()
+    {
+        String numberRegex = "^[0-9]*$";
+        return numberRegex;
+    }
+    public boolean allValidators()
+    {
+        boolean validate = true;
+/*
+        if(     roomNumberField.getText().matches(validateStrings()) ||
+                roomNumberField.getText().matches(validateNumbers()) &&
+                occupancyField.getText().matches(validateStrings()) ||
+                occupancyField.getText().matches(validateNumbers())
+            )
+        {
+            validate = true;
+
+        }
+
+ */
+        return validate;
+    }
+
+
     public void actionListenerMethod()
     {
         crudPanel.createBtnAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (e.getActionCommand().equalsIgnoreCase("Create record"))
+                if(allValidators())
                 {
-                    String roomNumber = roomNumberField.getText();
-                    String occupancy = occupancyField.getText();
+                    if (e.getActionCommand().equalsIgnoreCase("Create record"))
+                    {
+                        String roomNumber = roomNumberField.getText();
+                        String occupancy = occupancyField.getText();
 
-                    ClassRoom  cr = ClassRoomFactory.build(roomNumber, occupancy);
-                    new ConsoleApp().post(cr, "http://localhost:8080/api/v1/day-care/classroom/save");
+                        ClassRoom  cr = ClassRoomFactory.build(roomNumber, occupancy);
+                        new ConsoleApp().post(cr, "http://localhost:8080/api/v1/day-care/classroom/save");
+                        String columns [] = {"Classroom Number", "Max Occupancy"};
+                        tableModel = new DefaultTableModel(columns , 0);
 
-                    createTable();
-                }
+                        createTable();
+                        mouseListenerMethod();
+                        modelListenerMethod();
+
+                        JOptionPane.showMessageDialog(null, "Record was successfully Created!");
+                    }
+
+                }else
+                    {
+                        JOptionPane.showMessageDialog(null, "Enter valid values only");
+                        roomNumberField.setText("");
+                        occupancyField.setText("");
+
+                    }
+
+
                 if (e.getActionCommand().equalsIgnoreCase("delete record"))
                 {
-                    new ConsoleApp().delete(cr.getClassroomNumber(), "http://localhost:8080/api/v1/day-care/classroom/delete/");
+                    int result = JOptionPane.showConfirmDialog(null,"Are you sure you want to delete this record?", "Swing Tester",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
 
-                    createTable();
-                    mouseListenerMethod();
+                    if(result == JOptionPane.YES_OPTION)
+                    {
+                        new ConsoleApp().delete(cr.getClassroomNumber(), "http://localhost:8080/api/v1/day-care/classroom/delete/");
+                        String columns[] = {"Classroom Number", "Max Occupancy"};
+                        tableModel = new DefaultTableModel(columns, 0);
+
+                        createTable();
+                        mouseListenerMethod();
+                        modelListenerMethod();
+
+                        JOptionPane.showMessageDialog(null, "Record was successfully Deleted!");
+                    }
                 }
 
                 if (e.getActionCommand().equalsIgnoreCase("Update"))
                 {
-                    createTable();
-                    mouseListenerMethod();
+                    int result = JOptionPane.showConfirmDialog(null,"Are you sure you want to update this record?", "Swing Tester",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
+
+                    if(result == JOptionPane.YES_OPTION)
+                    {
+                        System.out.println(cRoom);
+                        new ConsoleApp().post(cRoom, "http://localhost:8080/api/v1/day-care/classroom/save/");
+
+                        String columns[] = {"Classroom Number", "Max Occupancy"};
+                        tableModel = new DefaultTableModel(columns, 0);
+
+                        createTable();
+                        mouseListenerMethod();
+                        modelListenerMethod();
+
+                        JOptionPane.showMessageDialog(null, "Record was successfully Updated!");
+                    }
+                    else
+                    {
+                        String columns[] = {"Classroom Number", "Max Occupancy"};
+                        tableModel = new DefaultTableModel(columns, 0);
+
+                        createTable();
+                        mouseListenerMethod();
+                        modelListenerMethod();
+                    }
                 }
 
                 if (e.getActionCommand().equalsIgnoreCase("back home"))
@@ -221,7 +341,6 @@ public class ClassroomUI {
                 {
                     System.out.println("Log yourself out");
                 }
-
             }
         });
     }
