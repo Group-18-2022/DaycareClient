@@ -31,7 +31,6 @@ public class Loader {
 
         progressBar = new JProgressBar(0,100);
 
-
         mainFrame.pack();
         mainFrame.setVisible(true);
 
@@ -42,13 +41,13 @@ public class Loader {
 
     private void loading() {
         progressBar.setForeground(new Color(51, 204, 5));
-        progressBar.setPreferredSize(new Dimension(430, 70));
-        lblImage.setPreferredSize(new Dimension(450, 380));
+        progressBar.setPreferredSize(new Dimension(300, 70));
+        lblImage.setPreferredSize(new Dimension(300, 380));
 
         pnlBar.setBackground(Color.BLACK);
         pnlBar.add(progressBar);
 
-        pnlMain.add(lblImage);
+        //pnlMain.add(lblImage);
         pnlMain.add(lblPercantage, BorderLayout.SOUTH);
 
         mainFrame.add(pnlMain);
