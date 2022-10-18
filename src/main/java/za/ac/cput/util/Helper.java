@@ -45,4 +45,11 @@ public class Helper {
 
         return true;
     }
+
+    public static boolean isValidString(String input) {
+        if(!input.matches("^[a-zA-Z0-9_\\-.]*$"))
+            throw new IllegalStateException(String.format("Invalid character(s) entered: %s", input));
+
+        return true;
+    }
 }
