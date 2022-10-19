@@ -74,36 +74,7 @@ public class ConsoleApp
             throw new RuntimeException(e);
         }
     }
-    public static List<Object> getAll(String allUrl) //pass the url from the Controller class for findAll/getAll
-    {
 
-        List<Object> objectList = new ArrayList<>();
-        try
-        {
-            String URL = allUrl;
-
-            Request request = new Request.Builder()
-                    .url(URL)
-                    .build();
-            Response response = client.newCall(request).execute();
-
-            String responseBod = response.body().string();
-
-            JSONArray identities = new JSONArray(responseBod);
-
-
-            for (int i =0; i<identities.length(); i++) {
-                JSONObject identity = identities.getJSONObject(i);
-                Gson g = new Gson();
-                Object o = g.fromJson(identity.toString(), ClassRoom.class);
-                objectList.add(o);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //System.out.println(objectList);
-        return objectList;
-    }
 
 
     public static void main(String[] args)

@@ -1,63 +1,73 @@
 package za.ac.cput.views;
 
-import za.ac.cput.views.UIclasses.ChildUI;
-import za.ac.cput.views.UIclasses.ClassroomUI;
+import za.ac.cput.domain.DayCareVenue;
+import za.ac.cput.views.UIclasses.*;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
 import za.ac.cput.views.mainPanels.SecretaryPanel;
 import za.ac.cput.views.mainPanels.TeacherPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class mainGUI extends JFrame
+public class mainGUI //extends JFrame
 {
-    private Frame mainFrame;
+    private static JFrame mainFrame;
     private JPanel mainPanel;
 
     public mainGUI()
     {
-        mainFrame = new Frame();
+        mainFrame = new JFrame("Main GUI Frame");
         mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+        mainPanel.setPreferredSize(new Dimension(950, 650));
 
         //ClassroomUI cr = new ClassroomUI();
         //add(cr.classRoomSetUp());
-        //dispose();
 
-        ChildUI cui = new ChildUI();
-        add(cui.childSetUp());
+        //ChildUI cui = new ChildUI();
+        //add(cui.childSetUp());
 
-        //setUpUser(3);
+        //PrincipalUI pui = new PrincipalUI();
+        //add(pui.principalSetUp());
+
+        //ParentUI parentUI = new ParentUI();
+        //add(parentUI.parentSetUp());
+
+        //EmergencyServiceProviderUI espUI = new EmergencyServiceProviderUI();
+        //mainPanel.add(espUI.espSetUp());
+
+        //IncidentUI iui = new IncidentUI();
+        //add(iui.incidentSetUp());
+
+        //setUpUser(1);
+        //mainPanel.add(jp);
+
+        //mainPanel.add(jp);
+
+        mainPanel.add(new ChildUI().childSetUp()); //This is how to manually run each GUI
 
         mainFrame.add(mainPanel);
-        pack();
-        setLocationRelativeTo(null);
-        //setSize(950, 700);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.pack();
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setVisible(true);
+        mainFrame.setDefaultCloseOperation(mainFrame.EXIT_ON_CLOSE);
+    }
+    public static final JFrame getMainFrame(){
+        return mainFrame;
     }
 
-    public void setUpUser(int loginValue)
+    public JPanel loadUserPanel(JPanel jp)
     {
-        if(loginValue == 1)
-        {
-            PrincipalPanel pp = new PrincipalPanel();
-            add(pp.principalGuiSetUp());
-        } else if (loginValue == 2)
-        {
-            TeacherPanel tp = new TeacherPanel();
-            add(tp.teacherGuiSetUp());
-        } else if (loginValue == 3)
-        {
-            SecretaryPanel sp = new SecretaryPanel();
-            add(sp.secretaryGuiSetUp());
-        }
+        mainPanel.removeAll();
+        mainPanel.add(jp);
+
+        mainPanel.revalidate();
+        mainPanel.repaint();
+
+        return jp;
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         new mainGUI();
     }
-
 }

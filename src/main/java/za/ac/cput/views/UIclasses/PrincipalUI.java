@@ -6,9 +6,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.data.jpa.repository.JpaRepository;
 import za.ac.cput.domain.ClassRoom;
+import za.ac.cput.domain.Principal;
 import za.ac.cput.factory.ClassRoomFactory;
+import za.ac.cput.factory.PrincipalFactory;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
@@ -17,7 +18,6 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,77 +27,91 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassroomUI {
+public class PrincipalUI
+{
     private static OkHttpClient client = new OkHttpClient();
-    private JLabel roomNumberLbl, occupancyLbl;
-    private JTextField roomNumberField, occupancyField;
-    private JPanel roomPanel, occupancyPanel;
+    private JLabel principalIdLbl, firstNameLbl, lastNameLbl, dobLbl;
+    private JTextField principalIdField, firstNameField, lastNameField, dobField;
+    private JPanel principalIdPanel, firstNamePanel, lastNamePanel, dobPanel;
 
-    private JTable classRoomTable;
+    private JTable principalTable;
     private DefaultTableModel tableModel;
     private JScrollPane newPane;
 
-    private JPanel classRoomTablePanel;
-    private JPanel createClassRoomPanel;
-
+    private JPanel principalTablePanel;
+    private JPanel createPrincipalPanel;
     JPanel crud;
 
     private CrudPanel crudPanel;
+    private Principal pr;
+    Principal prncpl;
 
-    private ClassRoom cr;
-    ClassRoom cRoom;
 
-
-    public ClassroomUI()
+    public PrincipalUI()
     {
-        roomNumberLbl = new JLabel("Room Number");
-        occupancyLbl = new JLabel("Maximum Occupancy");
+        principalIdLbl = new JLabel("Principal ID");
+        firstNameLbl = new JLabel("First Name");
+        lastNameLbl = new JLabel("Last Name");
+        dobLbl = new JLabel("Date of Birth");
 
-        roomNumberField = new JTextField();
-        occupancyField = new JTextField();
+        principalIdField = new JTextField();
+        firstNameField = new JTextField();
+        lastNameField = new JTextField();
+        dobField = new JTextField();
 
-        classRoomTable = new JTable();
-        String columns [] = {"Classroom Number", "Max Occupancy"};
+        principalIdPanel = new JPanel();
+        firstNamePanel = new JPanel();
+        lastNamePanel = new JPanel();
+        dobPanel = new JPanel();
+
+        principalTablePanel = new JPanel();
+        createPrincipalPanel = new JPanel();
+
+        principalTable = new JTable();
+        String columns [] = {"Principal Id", "First Name", "Last Name", "Date of Birth"};
         tableModel = new DefaultTableModel(columns , 0);
         newPane = new JScrollPane();
-
-        roomPanel = new JPanel();
-        occupancyPanel = new JPanel();
-        classRoomTablePanel = new JPanel();
-        createClassRoomPanel = new JPanel();
 
         crudPanel = new CrudPanel();
 
         modelListenerMethod();
         actionListenerMethod();
     }
-    public JPanel classRoomSetUp()
+    public JPanel principalSetUp()
     {
         createTable();
         mouseListenerMethod();
 
-        roomPanel.setLayout(new GridLayout(1, 2));
-        occupancyPanel.setLayout(new GridLayout(1, 2));
+        principalIdPanel.setLayout(new GridLayout(1, 2));
+        firstNamePanel.setLayout(new GridLayout(1, 2));
+        lastNamePanel.setLayout(new GridLayout(1, 2));
+        dobPanel.setLayout(new GridLayout(1, 2));
 
-        createClassRoomPanel.setLayout(new GridLayout(10, 0));
-        createClassRoomPanel.add(roomPanel);
-        createClassRoomPanel.add(occupancyPanel);
+        createPrincipalPanel.setLayout(new GridLayout(10, 0));
+        createPrincipalPanel.add(principalIdPanel);
+        createPrincipalPanel.add(firstNamePanel);
+        createPrincipalPanel.add(lastNamePanel);
+        createPrincipalPanel.add(dobPanel);
 
-        roomPanel.add(roomNumberLbl);
-        roomPanel.add(roomNumberField);
-        occupancyPanel.add(occupancyLbl);
-        occupancyPanel.add(occupancyField);
+        principalIdPanel.add(principalIdLbl);
+        principalIdPanel.add(principalIdField);
+        firstNamePanel.add(firstNameLbl);
+        firstNamePanel.add(firstNameField);
+        lastNamePanel.add(lastNameLbl);
+        lastNamePanel.add(lastNameField);
+        dobPanel.add(dobLbl);
+        dobPanel.add(dobField);
 
-        classRoomTablePanel.add(newPane);
+        principalTablePanel.add(newPane);
 
-        crud = crudPanel.crudSetUp(createClassRoomPanel, classRoomTablePanel);
+        crud = crudPanel.crudSetUp(createPrincipalPanel, principalTablePanel);
         return crud;
     }
 
 
-    public static List<Object> getAll(String allUrl) //pass the url from the Controller class for findAll/getAll
+    public static java.util.List<Object> getAll(String allUrl) //pass the url from the Controller class for findAll/getAll
     {
-        List<Object> objectList = new ArrayList<>();
+        java.util.List<Object> objectList = new ArrayList<>();
         try
         {
             String URL = allUrl;
@@ -113,7 +127,7 @@ public class ClassroomUI {
             {
                 JSONObject identity = identities.getJSONObject(i);
                 Gson g = new Gson();
-                Object o = g.fromJson(identity.toString(), ClassRoom.class);
+                Object o = g.fromJson(identity.toString(), Principal.class);
                 objectList.add(o);
             }
         } catch (IOException e) {
@@ -125,16 +139,16 @@ public class ClassroomUI {
     {
         try
         {
-            classRoomTable = new JTable(tableModel);
-            newPane.setViewportView(classRoomTable);
+            principalTable = new JTable(tableModel);
+            newPane.setViewportView(principalTable);
             newPane.setPreferredSize(new Dimension(900, 200));
 
-            List classRoomList = getAll("http://localhost:8080/api/v1/day-care/classroom/all");
-            List<ClassRoom> classRoomList1 =  classRoomList;
+            java.util.List principalList = getAll("http://localhost:8080/api/v1/day-care/principal/all");
+            java.util.List<Principal> principalList1 =  principalList;
 
-            for(int i = 0; i < classRoomList.size(); i++ )
+            for(int i = 0; i < principalList.size(); i++ )
             {
-                Object[] objs = {classRoomList1.get(i).getClassroomNumber(), classRoomList1.get(i).getOccupancy()};
+                Object[] objs = {principalList1.get(i).getPrincipalID(), principalList1.get(i).getFirstName(), principalList1.get(i).getLastName(), principalList1.get(i).getDob()};
                 tableModel.addRow(objs);
             }
         }
@@ -144,20 +158,20 @@ public class ClassroomUI {
         }
     }
 
-    public ClassRoom getTableItem(int rowNum)
+    public Principal getTableItem(int rowNum)
     {
-        ClassRoom newClassroom = null;
+        Principal newPrincipal = null;
         try
         {
-            Object obj  =  getAll("http://localhost:8080/api/v1/day-care/classroom/all");
-            List list = (List<ClassRoom>)obj;
-            newClassroom = (ClassRoom) list.get(rowNum);
+            Object obj  =  getAll("http://localhost:8080/api/v1/day-care/principal/all");
+            java.util.List list = (List<Principal>)obj;
+            newPrincipal = (Principal) list.get(rowNum);
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
-        return newClassroom;
+        return newPrincipal;
     }
 
     public void createTableModelListener(TableModelListener tml)
@@ -175,29 +189,39 @@ public class ClassroomUI {
                 tableModel.addTableModelListener(this);
                 int firstRow = e.getFirstRow();
 
-                String roomNumber = "";
-                String occupiedRooms = "";
+                 String principalId = "";
+                 String firstName = "";
+                 String lastName = "";
+                 String dob = "";
 
-                    for(int j = 0; j < classRoomTable.getColumnCount();j++)
+                for(int j = 0; j < principalTable.getColumnCount(); j++)
+                {
+                    if(j==0)
                     {
-                        if(j==0)
-                        {
-                            roomNumber =  classRoomTable.getModel().getValueAt(firstRow ,j).toString();
-                        }
-                        if(j==1)
-                        {
-                            occupiedRooms = classRoomTable.getModel().getValueAt(firstRow ,j).toString();
-                        }
+                        principalId =  principalTable.getModel().getValueAt(firstRow ,j).toString();
                     }
-                    cRoom = ClassRoomFactory.build(roomNumber, occupiedRooms);
-        }});
+                    if(j==1)
+                    {
+                        firstName = principalTable.getModel().getValueAt(firstRow ,j).toString();
+                    }
+                    if(j==2)
+                    {
+                        lastName = principalTable.getModel().getValueAt(firstRow ,j).toString();
+                    }
+                    if(j==3)
+                    {
+                        dob = principalTable.getModel().getValueAt(firstRow ,j).toString();
+                    }
+                }
+                prncpl = PrincipalFactory.createPrincipal(principalId, firstName, lastName, dob);
+            }});
 
-        System.out.println(cRoom);
+        System.out.println(prncpl);
     }
 
     public void createMouseListener(MouseListener ml)
     {
-        classRoomTable.addMouseListener(ml);
+        principalTable.addMouseListener(ml);
     }
 
     public void mouseListenerMethod()
@@ -206,7 +230,7 @@ public class ClassroomUI {
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                cr = getTableItem(classRoomTable.getSelectedRow());
+                pr = getTableItem(principalTable.getSelectedRow());
             }
             @Override
             public void mousePressed(MouseEvent e) {}
@@ -227,13 +251,15 @@ public class ClassroomUI {
             {
                     if (e.getActionCommand().equalsIgnoreCase("Create record"))
                     {
-                        String roomNumber = roomNumberField.getText();
-                        String occupancy = occupancyField.getText();
+                        String principalId = principalIdField.getText();
+                        String firstName = firstNameField.getText();
+                        String lastName = lastNameField.getText();
+                        String dob = dobField.getText();
 
-                        ClassRoom  cr = ClassRoomFactory.build(roomNumber, occupancy);
-                        new ConsoleApp().post(cr, "http://localhost:8080/api/v1/day-care/classroom/save");
-                        String columns [] = {"Classroom Number", "Max Occupancy"};
-                        tableModel = new DefaultTableModel(columns , 0);
+                        Principal  pr = PrincipalFactory.createPrincipal(principalId, firstName, lastName, dob);
+                        new ConsoleApp().post(pr, "http://localhost:8080/api/v1/day-care/principal/save");
+                        String columns [] = {"Principal Id", "First Name", "Last Name", "Date of Birth"};
+                                tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
                         mouseListenerMethod();
@@ -251,9 +277,9 @@ public class ClassroomUI {
 
                     if(result == JOptionPane.YES_OPTION)
                     {
-                        new ConsoleApp().delete(cr.getClassroomNumber(), "http://localhost:8080/api/v1/day-care/classroom/delete/");
-                        String columns[] = {"Classroom Number", "Max Occupancy"};
-                        tableModel = new DefaultTableModel(columns, 0);
+                        new ConsoleApp().delete(pr.getPrincipalID(), "http://localhost:8080/api/v1/day-care/principal/delete/");
+                        String columns [] = {"Principal Id", "First Name", "Last Name", "Date of Birth"};
+                        tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
                         mouseListenerMethod();
@@ -271,11 +297,11 @@ public class ClassroomUI {
 
                     if(result == JOptionPane.YES_OPTION)
                     {
-                        System.out.println(cRoom);
-                        new ConsoleApp().post(cRoom, "http://localhost:8080/api/v1/day-care/classroom/save/");
+                        System.out.println(prncpl);
+                        new ConsoleApp().post(prncpl, "http://localhost:8080/api/v1/day-care/principal/save/");
 
-                        String columns[] = {"Classroom Number", "Max Occupancy"};
-                        tableModel = new DefaultTableModel(columns, 0);
+                        String columns [] = {"Principal Id", "First Name", "Last Name", "Date of Birth"};
+                        tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
                         mouseListenerMethod();
@@ -285,8 +311,8 @@ public class ClassroomUI {
                     }
                     else
                     {
-                        String columns[] = {"Classroom Number", "Max Occupancy"};
-                        tableModel = new DefaultTableModel(columns, 0);
+                        String columns [] = {"Principal Id", "First Name", "Last Name", "Date of Birth"};
+                        tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
                         mouseListenerMethod();

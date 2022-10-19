@@ -6,13 +6,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import za.ac.cput.domain.Child;
-
-import za.ac.cput.factory.ChildFactory;
-
+import za.ac.cput.domain.Parent;
+import za.ac.cput.factory.ParentFactory;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
-import za.ac.cput.views.mainPanels.PrincipalPanel;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -27,107 +24,96 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChildUI
+public class ParentUI
 {
-
     private static OkHttpClient client = new OkHttpClient();
-    private JLabel childIdLbl, firstNameLbl, lastNameLbl, addressLbl,
-            dobLbl, genderlbl;
-    private JTextField childIdField, firstNameField, lastNameField, addressField,
-            dobField, genderField;
-    private JPanel childIdPanel, firstNamePanel, lastNamePanel, addressPanel,
-            dobPanel, genderPanel;
+    private JLabel parentIdLbl, firstNameLbl, lastNameLbl, addressLbl, phoneNumberLbl;
+    private JTextField parentIdField, firstNameField, lastNameField, addressField, phoneNumberField;
+    private JPanel parentIdPanel, firstNamePanel, lastNamePanel, addressPanel, phoneNumberPanel;
 
-    private JTable childTable;
+    private JTable parentTable;
     private DefaultTableModel tableModel;
     private JScrollPane newPane;
 
-    private JPanel childTablePanel;
-    private JPanel createChildPanel;
+    private JPanel parentTablePanel;
+    private JPanel createParentPanel;
+
     JPanel crud;
 
     private CrudPanel crudPanel;
 
-    private Child child1;
-    Child child;
+    private Parent pr;
+    Parent prnt;
 
-    public ChildUI()
+
+    public ParentUI()
     {
-        childIdLbl = new JLabel("Child Id");
-        firstNameLbl = new JLabel("First Name");
-        lastNameLbl = new JLabel("Last Name");
-        addressLbl = new JLabel("Address");
-        dobLbl = new JLabel("Date of Birth");
-        genderlbl = new JLabel("Gender");
+        parentIdLbl = new JLabel("Parent ID");
+        firstNameLbl= new JLabel("First Name");
+        lastNameLbl= new JLabel("Last Name");
+        addressLbl= new JLabel("Address");
+        phoneNumberLbl= new JLabel("Phone Number");
 
-        childIdField = new JTextField();
+        parentIdField = new JTextField();
         firstNameField = new JTextField();
         lastNameField = new JTextField();
         addressField = new JTextField();
-        dobField = new JTextField();
-        genderField = new JTextField();
+        phoneNumberField = new JTextField();
 
-
-        childTable = new JTable();
-        String columns [] = {"Child Id", "First Name", "Last Name",
-                "Address", "DoB", "Gender"};
-        tableModel = new DefaultTableModel(columns , 0);
-        newPane = new JScrollPane();
-
-        childIdPanel = new JPanel();
+        parentIdPanel = new JPanel();
         firstNamePanel = new JPanel();
         lastNamePanel = new JPanel();
         addressPanel = new JPanel();
-        dobPanel = new JPanel();
-        genderPanel= new JPanel();
+        phoneNumberPanel = new JPanel();
 
-        childTablePanel = new JPanel();
-        createChildPanel = new JPanel();
+        parentTable = new JTable();
+        String columns [] = {"Parent Id", "First Name", "Last Name", "Address", "Phone Number"};
+        tableModel = new DefaultTableModel(columns , 0);
+        newPane = new JScrollPane();
+
+        parentTablePanel = new JPanel();
+        createParentPanel = new JPanel();
 
         crudPanel = new CrudPanel();
 
         modelListenerMethod();
         actionListenerMethod();
-
     }
-    public JPanel childSetUp()
+    public JPanel parentSetUp()
     {
         createTable();
         mouseListenerMethod();
 
-        childIdPanel.setLayout(new GridLayout(1, 2));
+        parentIdPanel.setLayout(new GridLayout(1, 2));
         firstNamePanel.setLayout(new GridLayout(1, 2));
         lastNamePanel.setLayout(new GridLayout(1, 2));
         addressPanel.setLayout(new GridLayout(1, 2));
-        dobPanel.setLayout(new GridLayout(1, 2));
-        genderPanel.setLayout(new GridLayout(1, 2));
+        phoneNumberPanel.setLayout(new GridLayout(1, 2));
 
-        createChildPanel.setLayout(new GridLayout(10, 0));
-        createChildPanel.add(childIdPanel);
-        createChildPanel.add(firstNamePanel);
-        createChildPanel.add(lastNamePanel);
-        createChildPanel.add(addressPanel);
-        createChildPanel.add(dobPanel);
-        createChildPanel.add(genderPanel);
+        createParentPanel.setLayout(new GridLayout(10, 0));
+        createParentPanel.add(parentIdPanel);
+        createParentPanel.add(firstNamePanel);
+        createParentPanel.add(lastNamePanel);
+        createParentPanel.add(addressPanel);
+        createParentPanel.add(phoneNumberPanel);
 
-        childIdPanel.add(childIdLbl);
-        childIdPanel.add(childIdField);
+        parentIdPanel.add(parentIdLbl);
+        parentIdPanel.add(parentIdField);
         firstNamePanel.add(firstNameLbl);
         firstNamePanel.add(firstNameField);
         lastNamePanel.add(lastNameLbl);
         lastNamePanel.add(lastNameField);
         addressPanel.add(addressLbl);
         addressPanel.add(addressField);
-        dobPanel.add(dobLbl);
-        dobPanel.add(dobField);
-        genderPanel.add(genderlbl);
-        genderPanel.add(genderField);
+        phoneNumberPanel.add(phoneNumberLbl);
+        phoneNumberPanel.add(phoneNumberField);
 
-        childTablePanel.add(newPane);
+        parentTablePanel.add(newPane);
 
-        crud = crudPanel.crudSetUp(createChildPanel, childTablePanel);
+        crud = crudPanel.crudSetUp(createParentPanel, parentTablePanel);
         return crud;
     }
+
 
     public static java.util.List<Object> getAll(String allUrl) //pass the url from the Controller class for findAll/getAll
     {
@@ -147,7 +133,7 @@ public class ChildUI
             {
                 JSONObject identity = identities.getJSONObject(i);
                 Gson g = new Gson();
-                Object o = g.fromJson(identity.toString(), Child.class);
+                Object o = g.fromJson(identity.toString(), Parent.class);
                 objectList.add(o);
             }
         } catch (IOException e) {
@@ -159,20 +145,18 @@ public class ChildUI
     {
         try
         {
-            childTable = new JTable(tableModel);
-            newPane.setViewportView(childTable);
+            parentTable = new JTable(tableModel);
+            newPane.setViewportView(parentTable);
             newPane.setPreferredSize(new Dimension(900, 200));
 
-            java.util.List childList = getAll("http://localhost:8080/api/v1/day-care/child/all");
-            java.util.List<Child> childList1 =  childList;
+            java.util.List parentList = getAll("http://localhost:8080/api/v1/day-care/parent/all");
+            java.util.List<Parent> parentList1 =  parentList;
 
-            for(int i = 0; i < childList.size(); i++ )
+            for(int i = 0; i < parentList.size(); i++ )
             {
-                Object[] objs = {childList1.get(i).getChildID(),
-                        childList1.get(i).getFirstName(), childList1.get(i).getLastName(),
-                        childList1.get(i).getAddress(), childList1.get(i).getDob(),
-                        childList1.get(i).getGender()
-                };
+
+                Object[] objs = {parentList1.get(i).getParentID(), parentList1.get(i).getFirstName(),
+                        parentList1.get(i).getLastName(), parentList1.get(i).getAddress(), parentList1.get(i).getPhoneNumber()};
                 tableModel.addRow(objs);
             }
         }
@@ -182,21 +166,20 @@ public class ChildUI
         }
     }
 
-    public Child getTableItem(int rowNum)
+    public Parent getTableItem(int rowNum)
     {
-        Child newChild = null;
+        Parent newParent = null;
         try
         {
-            //Object obj  =  ConsoleApp.getAll("http://localhost:8080/api/v1/day-care/child/all");
-            Object obj = getAll("http://localhost:8080/api/v1/day-care/child/all");
-            List list = (List<Child>)obj;
-            newChild = (Child) list.get(rowNum);
+            Object obj  =  getAll("http://localhost:8080/api/v1/day-care/parent/all");
+            java.util.List list = (List<Parent>)obj;
+            newParent = (Parent) list.get(rowNum);
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
-        return newChild;
+        return newParent;
     }
 
     public void createTableModelListener(TableModelListener tml)
@@ -214,50 +197,44 @@ public class ChildUI
                 tableModel.addTableModelListener(this);
                 int firstRow = e.getFirstRow();
 
-                String childID = "";
+                String parentId = "";
                 String firstName = "";
                 String lastName = "";
                 String address = "";
-                String dob = "";
-                String gender = "";
+                String phoneNumber = "";
 
-                for(int j = 0; j < childTable.getColumnCount(); j++)
+                for(int j = 0; j < parentTable.getColumnCount(); j++)
                 {
                     if(j==0)
                     {
-                        childID =  childTable.getModel().getValueAt(firstRow ,j).toString();
+                        parentId =  parentTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==1)
                     {
-                        firstName = childTable.getModel().getValueAt(firstRow ,j).toString();
+                        firstName = parentTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==2)
                     {
-                        lastName =  childTable.getModel().getValueAt(firstRow ,j).toString();
+                        lastName =  parentTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==3)
                     {
-                        address =  childTable.getModel().getValueAt(firstRow ,j).toString();
+                        address = parentTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==4)
                     {
-                        dob =  childTable.getModel().getValueAt(firstRow ,j).toString();
+                        phoneNumber = parentTable.getModel().getValueAt(firstRow ,j).toString();
                     }
-                    if(j==5)
-                    {
-                        gender =  childTable.getModel().getValueAt(firstRow ,j).toString();
-                    }
-
                 }
-                child = ChildFactory.createChild(childID, firstName, lastName, address, dob, gender);
+                prnt = ParentFactory.buildParent(parentId, firstName, lastName, address, phoneNumber);
             }});
-        System.out.println(child);
+
+        System.out.println(prnt);
     }
 
     public void createMouseListener(MouseListener ml)
-
     {
-        childTable.addMouseListener(ml);
+        parentTable.addMouseListener(ml);
     }
 
     public void mouseListenerMethod()
@@ -266,8 +243,7 @@ public class ChildUI
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                child1 = getTableItem(childTable.getSelectedRow());
-                //System.out.println(c.toString());
+                pr = getTableItem(parentTable.getSelectedRow());
             }
             @Override
             public void mousePressed(MouseEvent e) {}
@@ -280,6 +256,33 @@ public class ChildUI
         });
     }
 
+    public String validateStrings()
+    {
+        String stringRegex = "^[a-zA-Z]*$";
+        return stringRegex;
+    }
+    public String validateNumbers()
+    {
+        String numberRegex = "^[0-9]*$";
+        return numberRegex;
+    }
+    public boolean allValidators()
+    {
+        boolean validate = true;
+/*
+        if(     roomNumberField.getText().matches(validateStrings()) ||
+                roomNumberField.getText().matches(validateNumbers()) &&
+                occupancyField.getText().matches(validateStrings()) ||
+                occupancyField.getText().matches(validateNumbers())
+            )
+        {
+            validate = true;
+
+        }
+
+ */
+        return validate;
+    }
 
 
     public void actionListenerMethod()
@@ -288,20 +291,19 @@ public class ChildUI
             @Override
             public void actionPerformed(ActionEvent e)
             {
+                if(allValidators())
+                {
                     if (e.getActionCommand().equalsIgnoreCase("Create record"))
                     {
-
-                        String childID = childIdField.getText();
+                        String parentId = parentIdField.getText();
                         String firstName = firstNameField.getText();
                         String lastName = lastNameField.getText();
                         String address = addressField.getText();
-                        String dob = dobField.getText();
-                        String gender = genderField.getText();
+                        String phoneNumber = phoneNumberField.getText();
 
-                        Child  ch = ChildFactory.createChild(childID, firstName, lastName, address, dob, gender);
-                        new ConsoleApp().post(ch, "http://localhost:8080/api/v1/day-care/child/save");
-                        String columns [] = {"Child Id", "First Name", "Last Name",
-                                "Address", "DoB", "Gender"};
+                        Parent  par = ParentFactory.buildParent(parentId, firstName, lastName, address, phoneNumber);
+                        new ConsoleApp().post(par, "http://localhost:8080/api/v1/day-care/parent/save");
+                        String columns [] = {"Parent Id", "First Name", "Last Name", "Address", "Phone Number"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
@@ -311,6 +313,13 @@ public class ChildUI
                         JOptionPane.showMessageDialog(null, "Record was successfully Created!");
                     }
 
+                }else
+                {
+                    JOptionPane.showMessageDialog(null, "Enter valid values only");
+
+                }
+
+
                 if (e.getActionCommand().equalsIgnoreCase("delete record"))
                 {
                     int result = JOptionPane.showConfirmDialog(null,"Are you sure you want to delete this record?", "Swing Tester",
@@ -319,10 +328,8 @@ public class ChildUI
 
                     if(result == JOptionPane.YES_OPTION)
                     {
-                        new ConsoleApp().delete(child1.getChildID(), "http://localhost:8080/api/v1/day-care/child/delete/");
-
-                        String columns [] = {"Child Id", "First Name", "Last Name",
-                                "Address", "DoB", "Gender"};
+                        new ConsoleApp().delete(pr.getParentID(), "http://localhost:8080/api/v1/day-care/parent/delete/");
+                        String columns [] = {"Parent Id", "First Name", "Last Name", "Address", "Phone Number"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
@@ -341,11 +348,10 @@ public class ChildUI
 
                     if(result == JOptionPane.YES_OPTION)
                     {
-                        System.out.println(child);
-                        new ConsoleApp().post(child, "http://localhost:8080/api/v1/day-care/child/save/");
+                        System.out.println(prnt);
+                        new ConsoleApp().post(prnt, "http://localhost:8080/api/v1/day-care/parent/save/");
 
-                        String columns [] = {"Child Id", "First Name", "Last Name",
-                                "Address", "DoB", "Gender"};
+                        String columns [] = {"Parent Id", "First Name", "Last Name", "Address", "Phone Number"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
@@ -356,8 +362,7 @@ public class ChildUI
                     }
                     else
                     {
-                        String columns [] = {"Child Id", "First Name", "Last Name",
-                                "Address", "DoB", "Gender"};
+                        String columns [] = {"Parent Id", "First Name", "Last Name", "Address", "Phone Number"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
@@ -368,19 +373,12 @@ public class ChildUI
 
                 if (e.getActionCommand().equalsIgnoreCase("back home"))
                 {
-                    crud.removeAll();
-
-                    PrincipalPanel pp = new PrincipalPanel();
-                    crud.add(pp.principalGuiSetUp());
-
-                    crud.revalidate();
-                    crud.repaint();
+                    System.out.println("Go Back Home");
                 }
                 if (e.getActionCommand().equalsIgnoreCase("logout"))
                 {
-                    LoginGUI.killMain();
-                    LoginGUI newLogin = new LoginGUI();
-                    newLogin.loginSetUp();
+                    System.out.println("Log yourself out");
+
                 }
             }
         });
