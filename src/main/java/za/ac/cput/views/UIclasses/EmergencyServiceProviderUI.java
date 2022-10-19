@@ -6,14 +6,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import za.ac.cput.domain.DayCareVenue;
 import za.ac.cput.domain.EmergencyServiceProvider;
-import za.ac.cput.factory.DayCareVenueFactory;
 import za.ac.cput.factory.ESPFactory;
 import za.ac.cput.views.consoleapp.ConsoleApp;
-import za.ac.cput.views.mainGUI;
 import za.ac.cput.views.mainPanels.CrudPanel;
-import za.ac.cput.views.mainPanels.PrincipalPanel;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -28,86 +24,86 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VenueUI
+public class EmergencyServiceProviderUI
 {
     private static OkHttpClient client = new OkHttpClient();
-    private JLabel dayCareNameLbl, addressLbl, phoneNumLbl, principalIdLbl;
-    private JTextField dayCareNameField, addressField, phoneNumField, principalIdField;
-    private JPanel dayCareNamePanel, addressPanel, phoneNumPanel, principalIdPanel;
-    private JTable venueTable;
+    private JLabel serviceIdLbl, serviceNameLbl, serviceTypeLbl, phoneNumLbl;
+    private JTextField serviceIdField, serviceNameField, serviceTypeField, phoneNumField;
+    private JPanel serviceIdPanel, serviceNamePanel, serviceTypePanel, phoneNumPanel;
+
+    private JTable espTable;
     private DefaultTableModel tableModel;
     private JScrollPane newPane;
 
-    private JPanel venueTablePanel;
-    private JPanel createVenuePanel;
+    private JPanel espTablePanel;
+    private JPanel createEspPanel;
 
     JPanel crud;
 
     private CrudPanel crudPanel;
 
-    private DayCareVenue dcv;
-    DayCareVenue daycrven;
+    private EmergencyServiceProvider es;
+    EmergencyServiceProvider emspr;
 
 
-    public VenueUI()
+    public EmergencyServiceProviderUI()
     {
-        dayCareNameLbl = new JLabel("Daycare Name");
-        addressLbl = new JLabel("Address");
+        serviceIdLbl= new JLabel("Service ID");
+        serviceNameLbl= new JLabel("Service Name");
+        serviceTypeLbl= new JLabel("Service Type");
         phoneNumLbl= new JLabel("Phone Number");
-        principalIdLbl = new JLabel("Principal ID");
 
-        dayCareNameField = new JTextField();
-        addressField = new JTextField();
-        phoneNumField = new JTextField();
-        principalIdField = new JTextField();;
+        serviceIdField = new JTextField();
+        serviceNameField = new JTextField();
+        serviceTypeField  = new JTextField();
+        phoneNumField  = new JTextField();
 
-        dayCareNamePanel = new JPanel();
-        addressPanel  = new JPanel();
-        phoneNumPanel  = new JPanel();
-        principalIdPanel  = new JPanel();
+        serviceIdPanel= new JPanel();
+        serviceNamePanel = new JPanel();
+        serviceTypePanel = new JPanel();
+        phoneNumPanel = new JPanel();
 
-        venueTablePanel = new JPanel();
-        createVenuePanel = new JPanel();
+        espTablePanel = new JPanel();
+        createEspPanel = new JPanel();
 
-        venueTable = new JTable();
-        String columns [] = {"Daycare Name", "Address", "Phone Number", "Principal Id"};
+        espTable = new JTable();
+        String columns [] = {"Service Id", "Service Name", "Service Type", "Phone Number"};
         tableModel = new DefaultTableModel(columns , 0);
         newPane = new JScrollPane();
 
         crudPanel = new CrudPanel();
 
-
         modelListenerMethod();
         actionListenerMethod();
     }
-    public JPanel venueSetUp()
+    public JPanel espSetUp()
     {
         createTable();
         mouseListenerMethod();
 
-        dayCareNamePanel.setLayout(new GridLayout(1, 2));
-        addressPanel.setLayout(new GridLayout(1, 2));
+        serviceIdPanel.setLayout(new GridLayout(1, 2));
+        serviceNamePanel.setLayout(new GridLayout(1, 2));
+        serviceTypePanel.setLayout(new GridLayout(1, 2));
         phoneNumPanel.setLayout(new GridLayout(1, 2));
-        principalIdPanel.setLayout(new GridLayout(1, 2));
 
-        createVenuePanel.setLayout(new GridLayout(10, 0));
-        createVenuePanel.add(dayCareNamePanel);
-        createVenuePanel.add(addressPanel);
-        createVenuePanel.add(phoneNumPanel);
-        createVenuePanel.add(principalIdPanel);
+        createEspPanel.setLayout(new GridLayout(10, 0));
+        createEspPanel.add(serviceIdPanel);
+        createEspPanel.add(serviceNamePanel);
+        createEspPanel.add(serviceTypePanel);
+        createEspPanel.add(phoneNumPanel);
 
-        dayCareNamePanel.add(dayCareNameLbl);
-        dayCareNamePanel.add(dayCareNameField);
-        addressPanel.add(addressLbl);
-        addressPanel.add(addressField);
+        serviceIdPanel.add(serviceIdLbl);
+        serviceIdPanel.add(serviceIdField);
+        serviceNamePanel.add(serviceNameLbl);
+        serviceNamePanel.add(serviceNameField);
+        serviceTypePanel.add(serviceTypeLbl);
+        serviceTypePanel.add(serviceTypeField);
         phoneNumPanel.add(phoneNumLbl);
         phoneNumPanel.add(phoneNumField);
-        principalIdPanel.add(principalIdLbl);
-        principalIdPanel.add(principalIdField);
 
-        venueTablePanel.add(newPane);
+        espTablePanel.add(newPane);
 
-        crud = crudPanel.crudSetUp(createVenuePanel, venueTablePanel);
+        crud = crudPanel.crudSetUp(createEspPanel, espTablePanel);
         return crud;
     }
 
@@ -130,7 +126,7 @@ public class VenueUI
             {
                 JSONObject identity = identities.getJSONObject(i);
                 Gson g = new Gson();
-                Object o = g.fromJson(identity.toString(), DayCareVenue.class);
+                Object o = g.fromJson(identity.toString(), EmergencyServiceProvider.class);
                 objectList.add(o);
             }
         } catch (IOException e) {
@@ -142,17 +138,17 @@ public class VenueUI
     {
         try
         {
-            venueTable = new JTable(tableModel);
-            newPane.setViewportView(venueTable);
+            espTable = new JTable(tableModel);
+            newPane.setViewportView(espTable);
             newPane.setPreferredSize(new Dimension(900, 200));
 
-            java.util.List venList = getAll("http://localhost:8080/api/v1/day-care/venue/all");
-            java.util.List<DayCareVenue> venList1 =  venList;
+            java.util.List espList = getAll("http://localhost:8080/api/v1/day-care/esp/all");
+            java.util.List<EmergencyServiceProvider> espList1 =  espList;
 
-            for(int i = 0; i < venList.size(); i++ )
+            for(int i = 0; i < espList.size(); i++ )
             {
-                Object[] objs = {venList1.get(i).getDayCareName(), venList1.get(i).getAddress(),
-                        venList1.get(i).getPhone(), venList1.get(i).getPricipalId()};
+                Object[] objs = {espList1.get(i).getServiceID(), espList1.get(i).getServiceName(),
+                        espList1.get(i).getType(), espList1.get(i).getPhoneNum()};
                 tableModel.addRow(objs);
             }
         }
@@ -162,20 +158,20 @@ public class VenueUI
         }
     }
 
-    public DayCareVenue getTableItem(int rowNum)
+    public EmergencyServiceProvider getTableItem(int rowNum)
     {
-        DayCareVenue newVen = null;
+        EmergencyServiceProvider newEsp = null;
         try
         {
-            Object obj  =  getAll("http://localhost:8080/api/v1/day-care/venue/all");
-            java.util.List list = (List<DayCareVenue>)obj;
-            newVen = (DayCareVenue) list.get(rowNum);
+            Object obj  =  getAll("http://localhost:8080/api/v1/day-care/esp/all");
+            java.util.List list = (List<EmergencyServiceProvider>)obj;
+            newEsp = (EmergencyServiceProvider) list.get(rowNum);
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
-        return newVen;
+        return newEsp;
     }
 
     public void createTableModelListener(TableModelListener tml)
@@ -193,39 +189,39 @@ public class VenueUI
                 tableModel.addTableModelListener(this);
                 int firstRow = e.getFirstRow();
 
-                String dayCareName = "";
-                String address  = "";
+                String serviceId = "";
+                String serviceName = "";
+                String serviceType = "";
                 String phoneNum = "";
-                String principalId  = "";
 
-                for(int j = 0; j < venueTable.getColumnCount(); j++)
+                for(int j = 0; j < espTable.getColumnCount(); j++)
                 {
                     if(j==0)
                     {
-                        dayCareName =  venueTable.getModel().getValueAt(firstRow ,j).toString();
+                        serviceId =  espTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==1)
                     {
-                        address = venueTable.getModel().getValueAt(firstRow ,j).toString();
+                        serviceName = espTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==2)
                     {
-                        phoneNum =  venueTable.getModel().getValueAt(firstRow ,j).toString();
+                        serviceType =  espTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==3)
                     {
-                        principalId = venueTable.getModel().getValueAt(firstRow ,j).toString();
+                        phoneNum = espTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                 }
-                daycrven = DayCareVenueFactory.build(dayCareName, address, phoneNum, principalId);
+                emspr = ESPFactory.createESP(serviceId, serviceName, serviceType, phoneNum);
             }});
 
-        System.out.println(daycrven);
+        System.out.println(emspr);
     }
 
     public void createMouseListener(MouseListener ml)
     {
-        venueTable.addMouseListener(ml);
+        espTable.addMouseListener(ml);
     }
 
     public void mouseListenerMethod()
@@ -234,7 +230,7 @@ public class VenueUI
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                dcv = getTableItem(venueTable.getSelectedRow());
+                es = getTableItem(espTable.getSelectedRow());
             }
             @Override
             public void mousePressed(MouseEvent e) {}
@@ -253,26 +249,27 @@ public class VenueUI
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if (e.getActionCommand().equalsIgnoreCase("Create record"))
-                {
+                    if (e.getActionCommand().equalsIgnoreCase("Create record"))
+                    {
+                        String serviceId = serviceIdField.getText();
+                        String serviceName = serviceNameField.getText();
+                        String serviceType = serviceTypeField.getText();
+                        String phoneNum = phoneNumField.getText();
 
-                    String dayCareName = dayCareNameField.getText();
-                    String address  = addressField.getText();
-                    String phoneNum = phoneNumField.getText();
-                    String principalId  = principalIdField.getText();
+                        EmergencyServiceProvider  espr = ESPFactory.createESP(serviceId, serviceName, serviceType, phoneNum);
+                        new ConsoleApp().post(espr, "http://localhost:8080/api/v1/day-care/esp/save");
 
-                    DayCareVenue  dcvn = DayCareVenueFactory.build(dayCareName, address, phoneNum, principalId);
-                    new ConsoleApp().post(dcvn, "http://localhost:8080/api/v1/day-care/venue/save");
+                        String columns [] = {"Service Id", "Service Name", "Service Type", "Phone Number"};
+                        tableModel = new DefaultTableModel(columns , 0);
 
-                    String columns [] = {"Daycare Name", "Address", "Phone Number", "Principal Id"};
-                    tableModel = new DefaultTableModel(columns , 0);
+                        createTable();
+                        mouseListenerMethod();
+                        modelListenerMethod();
 
-                    createTable();
-                    mouseListenerMethod();
-                    modelListenerMethod();
+                        JOptionPane.showMessageDialog(null, "Record was successfully Created!");
+                    }
 
-                    JOptionPane.showMessageDialog(null, "Record was successfully Created!");
-                }
+
 
                 if (e.getActionCommand().equalsIgnoreCase("delete record"))
                 {
@@ -282,9 +279,9 @@ public class VenueUI
 
                     if(result == JOptionPane.YES_OPTION)
                     {
-                        new ConsoleApp().delete(dcv.getDayCareName(), "http://localhost:8080/api/v1/day-care/venue/delete/");
+                        new ConsoleApp().delete(es.getServiceID(), "http://localhost:8080/api/v1/day-care/esp/delete/");
 
-                        String columns [] = {"Daycare Name", "Address", "Phone Number", "Principal Id"};
+                        String columns [] = {"Service Id", "Service Name", "Service Type", "Phone Number"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
@@ -303,10 +300,10 @@ public class VenueUI
 
                     if(result == JOptionPane.YES_OPTION)
                     {
-                        System.out.println(daycrven);
-                        new ConsoleApp().post(daycrven, "http://localhost:8080/api/v1/day-care/venue/save/");
+                        System.out.println(emspr);
+                        new ConsoleApp().post(emspr, "http://localhost:8080/api/v1/day-care/esp/save/");
 
-                        String columns [] = {"Daycare Name", "Address", "Phone Number", "Principal Id"};
+                        String columns [] = {"Service Id", "Service Name", "Service Type", "Phone Number"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
@@ -317,7 +314,7 @@ public class VenueUI
                     }
                     else
                     {
-                        String columns [] = {"Daycare Name", "Address", "Phone Number", "Principal Id"};
+                        String columns [] = {"Service Id", "Service Name", "Service Type", "Phone Number"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
@@ -328,20 +325,12 @@ public class VenueUI
 
                 if (e.getActionCommand().equalsIgnoreCase("back home"))
                 {
-                    crud.removeAll();
-
-                    PrincipalPanel pp = new PrincipalPanel();
-                    crud.add(pp.principalGuiSetUp());
-
-                    crud.revalidate();
-                    crud.repaint();
-
+                    System.out.println("Go Back Home");
                 }
                 if (e.getActionCommand().equalsIgnoreCase("logout"))
                 {
-                    LoginGUI.killMain();
-                    LoginGUI newLogin = new LoginGUI();
-                    newLogin.loginSetUp();
+                    System.out.println("Log yourself out");
+
                 }
             }
         });

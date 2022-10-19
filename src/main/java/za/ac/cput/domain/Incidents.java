@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Entity
 public class Incidents implements Serializable {
     @NotNull @Id
-    private String incidentID; //I removed teacherID and ChildID from here because an incidentID is the only thing needed to identify an incident
+    private String incidentID;
     @NotNull
     private String date, location, injuryDescription, teacherID, childID;
 
