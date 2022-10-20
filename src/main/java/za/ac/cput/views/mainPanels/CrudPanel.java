@@ -40,7 +40,7 @@ public class CrudPanel
     public CrudPanel()
     {
         imageMethod();
-        headingFont = new Font("Rockwell", Font.PLAIN, 18);
+        headingFont = new Font("Rockwell", Font.PLAIN, 20);
 
         mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(700, 550));
@@ -172,7 +172,6 @@ public class CrudPanel
 
         wIcon = new JLabel(new ImageIcon(newImage));
         wIcon.setPreferredSize(new Dimension(400, 65));
-
     }
 
 }

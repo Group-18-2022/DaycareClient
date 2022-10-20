@@ -84,7 +84,7 @@ public class LoginGUI implements ActionListener
             PrincipalPanel pp = new PrincipalPanel();
 
             return pp.principalGuiSetUp();
-        } else if (userField.getText().equalsIgnoreCase("secretary") && loginValue.equalsIgnoreCase("1234"))
+        } else if (userField.getText().equalsIgnoreCase("teacher") && loginValue.equalsIgnoreCase("1234"))
         {
             TeacherPanel tp = new TeacherPanel();
             return tp.teacherGuiSetUp();
@@ -92,6 +92,10 @@ public class LoginGUI implements ActionListener
         {
             SecretaryPanel sp = new SecretaryPanel();
             return sp.secretaryGuiSetUp();
+        }
+        else
+        {
+
         }
         return null;
     }
