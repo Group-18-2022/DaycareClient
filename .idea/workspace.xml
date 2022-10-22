@@ -83,12 +83,17 @@
       <recent name="C:\Users\Trevor\Desktop\ADP 3 Project\DaycareClient\src\main\java\za\ac\cput\factory" />
       <recent name="C:\Users\Trevor\Desktop\ADP 3 Project\DaycareClient\src\main\java\za\ac\cput\domain" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="za.ac.cput.views.components" />
+      <recent name="za.ac.cput.views.mainPanels" />
+      <recent name="za.ac.cput.views" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="za.ac.cput.factory" />
       <recent name="za.ac.cput.domain" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.za.ac.cput.views.StartApp">
+  <component name="RunManager" selected="Application.za.ac.cput.StartApp">
     <configuration name="Loader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="za.ac.cput.views.components.Loader" />
       <module name="DaycareClient" />
@@ -115,12 +120,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StartApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="za.ac.cput.views.StartApp" />
+    <configuration name="fakeGui" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="za.ac.cput.views.consoleapp.fakeGui" />
       <module name="DaycareClient" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="za.ac.cput.views.mainPanels.*" />
+          <option name="PATTERN" value="za.ac.cput.views.consoleapp.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -128,12 +133,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="fakeGui" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="za.ac.cput.views.consoleapp.fakeGui" />
+    <configuration name="za.ac.cput.StartApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="za.ac.cput.StartApp" />
       <module name="DaycareClient" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="za.ac.cput.views.consoleapp.*" />
+          <option name="PATTERN" value="za.ac.cput.views.mainPanels.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -156,7 +161,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.za.ac.cput.views.StartApp" />
+        <item itemvalue="Application.za.ac.cput.StartApp" />
         <item itemvalue="Application.za.ac.cput.views.mainPanels.mainFrameContainer" />
         <item itemvalue="Application.Loader" />
         <item itemvalue="Application.fakeGui" />

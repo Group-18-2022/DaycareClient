@@ -10,7 +10,7 @@ import za.ac.cput.domain.Child;
 
 import za.ac.cput.factory.ChildFactory;
 
-import za.ac.cput.views.StartApp;
+import za.ac.cput.StartApp;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
 import za.ac.cput.views.mainPanels.PrincipalPanel;

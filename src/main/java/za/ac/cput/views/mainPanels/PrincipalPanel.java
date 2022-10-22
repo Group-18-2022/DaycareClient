@@ -1,6 +1,6 @@
 package za.ac.cput.views.mainPanels;
 
-import za.ac.cput.views.StartApp;
+import za.ac.cput.StartApp;
 import za.ac.cput.views.UIclasses.*;
 
 import javax.imageio.ImageIO;

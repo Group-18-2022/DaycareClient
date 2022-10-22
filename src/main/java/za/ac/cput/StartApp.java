@@ -1,4 +1,4 @@
-package za.ac.cput.views;
+package za.ac.cput;
 
 import za.ac.cput.views.mainPanels.PrincipalPanel;
 import za.ac.cput.views.mainPanels.SecretaryPanel;
