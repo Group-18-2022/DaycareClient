@@ -6,9 +6,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import za.ac.cput.domain.DayCareVenue;
-import za.ac.cput.factory.DayCareVenueFactory;
 import za.ac.cput.StartApp;
+import za.ac.cput.domain.ClassRoom;
+import za.ac.cput.domain.VehicleRegDetails;
+import za.ac.cput.factory.VehicleRegDetailsFactory;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
@@ -26,86 +27,93 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VenueUI
+public class VehicleRegUI
 {
     private static OkHttpClient client = new OkHttpClient();
-    private JLabel dayCareNameLbl, addressLbl, phoneNumLbl, principalIdLbl;
-    private JTextField dayCareNameField, addressField, phoneNumField, principalIdField;
-    private JPanel dayCareNamePanel, addressPanel, phoneNumPanel, principalIdPanel;
-    private JTable venueTable;
+    private JLabel vehicleIdLbl, brandLbl, modelLbl, yearLbl, regDateLbl;
+    private JTextField vehicleIdField, brandField, modelField, yearField, regDateField;
+    private JPanel vehicleIdPanel, brandPanel, modelPanel, yearPanel, regDatePanel;
+
+    private JTable classRoomTable;
     private DefaultTableModel tableModel;
     private JScrollPane newPane;
 
-    private JPanel venueTablePanel;
-    private JPanel createVenuePanel;
+    private JPanel vehicleregTablePanel;
+    private JPanel createVehicleregPanel;
 
     JPanel crud;
 
     private CrudPanel crudPanel;
 
-    private DayCareVenue dcv;
-    DayCareVenue daycrven;
+    private VehicleRegDetails vr;
+    VehicleRegDetails vrgd;
 
 
-    public VenueUI()
+    public VehicleRegUI()
     {
-        dayCareNameLbl = new JLabel("Daycare Name");
-        addressLbl = new JLabel("Address");
-        phoneNumLbl= new JLabel("Phone Number");
-        principalIdLbl = new JLabel("Principal ID");
+        vehicleIdLbl = new JLabel("Vehicle ID");
+        brandLbl = new JLabel("Brand");
+        modelLbl = new JLabel("Model");
+        yearLbl = new JLabel("Year");
+        regDateLbl = new JLabel("Registration Date");
 
-        dayCareNameField = new JTextField();
-        addressField = new JTextField();
-        phoneNumField = new JTextField();
-        principalIdField = new JTextField();;
+        vehicleIdField= new JTextField();
+        brandField = new JTextField();
+        modelField = new JTextField();
+        yearField = new JTextField();
+        regDateField = new JTextField();
 
-        dayCareNamePanel = new JPanel();
-        addressPanel  = new JPanel();
-        phoneNumPanel  = new JPanel();
-        principalIdPanel  = new JPanel();
+        vehicleIdPanel = new JPanel();
+        brandPanel = new JPanel();
+        modelPanel = new JPanel();
+        yearPanel = new JPanel();
+        regDatePanel = new JPanel();
 
-        venueTablePanel = new JPanel();
-        createVenuePanel = new JPanel();
-
-        venueTable = new JTable();
-        String columns [] = {"Daycare Name", "Address", "Phone Number", "Principal Id"};
+        classRoomTable = new JTable();
+        String columns [] = {"Vehicle Id", "Brand", "Model", "Year", "Registration Date"};
         tableModel = new DefaultTableModel(columns , 0);
         newPane = new JScrollPane();
 
-        crudPanel = new CrudPanel();
+        vehicleregTablePanel = new JPanel();
+        createVehicleregPanel = new JPanel();
 
+        crudPanel = new CrudPanel();
 
         modelListenerMethod();
         actionListenerMethod();
     }
-    public JPanel venueSetUp()
+    public JPanel vehicleRegSetUp()
     {
         createTable();
         mouseListenerMethod();
 
-        dayCareNamePanel.setLayout(new GridLayout(1, 2));
-        addressPanel.setLayout(new GridLayout(1, 2));
-        phoneNumPanel.setLayout(new GridLayout(1, 2));
-        principalIdPanel.setLayout(new GridLayout(1, 2));
+        vehicleIdPanel.setLayout(new GridLayout(1, 2));
+        brandPanel.setLayout(new GridLayout(1, 2));
+        modelPanel.setLayout(new GridLayout(1, 2));
+        yearPanel.setLayout(new GridLayout(1, 2));
+        regDatePanel.setLayout(new GridLayout(1, 2));
 
-        createVenuePanel.setLayout(new GridLayout(10, 0));
-        createVenuePanel.add(dayCareNamePanel);
-        createVenuePanel.add(addressPanel);
-        createVenuePanel.add(phoneNumPanel);
-        createVenuePanel.add(principalIdPanel);
+        createVehicleregPanel.setLayout(new GridLayout(10, 0));
+        createVehicleregPanel.add(vehicleIdPanel);
+        createVehicleregPanel.add(brandPanel);
+        createVehicleregPanel.add(modelPanel);
+        createVehicleregPanel.add(yearPanel);
+        createVehicleregPanel.add(regDatePanel);
 
-        dayCareNamePanel.add(dayCareNameLbl);
-        dayCareNamePanel.add(dayCareNameField);
-        addressPanel.add(addressLbl);
-        addressPanel.add(addressField);
-        phoneNumPanel.add(phoneNumLbl);
-        phoneNumPanel.add(phoneNumField);
-        principalIdPanel.add(principalIdLbl);
-        principalIdPanel.add(principalIdField);
+        vehicleIdPanel.add(vehicleIdLbl);
+        vehicleIdPanel.add(vehicleIdField);
+        brandPanel.add(brandLbl);
+        brandPanel.add(brandField);
+        modelPanel.add(modelLbl);
+        modelPanel.add(modelField);
+        yearPanel.add(yearLbl);
+        yearPanel.add(yearField);
+        regDatePanel.add(regDateLbl);
+        regDatePanel.add(regDateField);
 
-        venueTablePanel.add(newPane);
+        vehicleregTablePanel.add(newPane);
 
-        crud = crudPanel.crudSetUp(createVenuePanel, venueTablePanel);
+        crud = crudPanel.crudSetUp(createVehicleregPanel, vehicleregTablePanel);
         return crud;
     }
 
@@ -128,7 +136,7 @@ public class VenueUI
             {
                 JSONObject identity = identities.getJSONObject(i);
                 Gson g = new Gson();
-                Object o = g.fromJson(identity.toString(), DayCareVenue.class);
+                Object o = g.fromJson(identity.toString(), VehicleRegDetails.class);
                 objectList.add(o);
             }
         } catch (IOException e) {
@@ -140,17 +148,18 @@ public class VenueUI
     {
         try
         {
-            venueTable = new JTable(tableModel);
-            newPane.setViewportView(venueTable);
+            classRoomTable = new JTable(tableModel);
+            newPane.setViewportView(classRoomTable);
             newPane.setPreferredSize(new Dimension(900, 200));
 
-            java.util.List venList = getAll("http://localhost:8080/api/v1/day-care/venue/all");
-            java.util.List<DayCareVenue> venList1 =  venList;
+            java.util.List vehicleRegList = getAll("http://localhost:8080/api/v1/day-care/vehicleregdetails/all");
+            java.util.List<VehicleRegDetails> vehicleRegList1 =  vehicleRegList;
 
-            for(int i = 0; i < venList.size(); i++ )
+            for(int i = 0; i < vehicleRegList.size(); i++ )
             {
-                Object[] objs = {venList1.get(i).getDayCareName(), venList1.get(i).getAddress(),
-                        venList1.get(i).getPhone(), venList1.get(i).getPricipalId()};
+                Object[] objs = {vehicleRegList1.get(i).getVehicleId(),
+                        vehicleRegList1.get(i).getBrand(), vehicleRegList1.get(i).getModel(),
+                        vehicleRegList1.get(i).getYear(), vehicleRegList1.get(i).getRegDate()};
                 tableModel.addRow(objs);
             }
         }
@@ -160,20 +169,20 @@ public class VenueUI
         }
     }
 
-    public DayCareVenue getTableItem(int rowNum)
+    public VehicleRegDetails getTableItem(int rowNum)
     {
-        DayCareVenue newVen = null;
+        VehicleRegDetails newRegDetails = null;
         try
         {
-            Object obj  =  getAll("http://localhost:8080/api/v1/day-care/venue/all");
-            java.util.List list = (List<DayCareVenue>)obj;
-            newVen = (DayCareVenue) list.get(rowNum);
+            Object obj  =  getAll("http://localhost:8080/api/v1/day-care/vehicleregdetails/all");
+            java.util.List list = (List<VehicleRegDetails>)obj;
+            newRegDetails = (VehicleRegDetails) list.get(rowNum);
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
-        return newVen;
+        return newRegDetails;
     }
 
     public void createTableModelListener(TableModelListener tml)
@@ -191,39 +200,44 @@ public class VenueUI
                 tableModel.addTableModelListener(this);
                 int firstRow = e.getFirstRow();
 
-                String dayCareName = "";
-                String address  = "";
-                String phoneNum = "";
-                String principalId  = "";
+                String vehicleId= "";
+                String brand= "";
+                String model= "";
+                String year= "";
+                String regDate= "";
 
-                for(int j = 0; j < venueTable.getColumnCount(); j++)
+                for(int j = 0; j < classRoomTable.getColumnCount();j++)
                 {
                     if(j==0)
                     {
-                        dayCareName =  venueTable.getModel().getValueAt(firstRow ,j).toString();
+                        vehicleId =  classRoomTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==1)
                     {
-                        address = venueTable.getModel().getValueAt(firstRow ,j).toString();
+                        brand = classRoomTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==2)
                     {
-                        phoneNum =  venueTable.getModel().getValueAt(firstRow ,j).toString();
+                        model = classRoomTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==3)
                     {
-                        principalId = venueTable.getModel().getValueAt(firstRow ,j).toString();
+                        year = classRoomTable.getModel().getValueAt(firstRow ,j).toString();
+                    }
+                    if(j==4)
+                    {
+                        regDate = classRoomTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                 }
-                daycrven = DayCareVenueFactory.build(dayCareName, address, phoneNum, principalId);
+                vrgd = VehicleRegDetailsFactory.createVehicleRegDetails(vehicleId, brand, model, year, regDate);
             }});
 
-        System.out.println(daycrven);
+        System.out.println(vrgd);
     }
 
     public void createMouseListener(MouseListener ml)
     {
-        venueTable.addMouseListener(ml);
+        classRoomTable.addMouseListener(ml);
     }
 
     public void mouseListenerMethod()
@@ -232,7 +246,7 @@ public class VenueUI
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                dcv = getTableItem(venueTable.getSelectedRow());
+                vr = getTableItem(classRoomTable.getSelectedRow());
             }
             @Override
             public void mousePressed(MouseEvent e) {}
@@ -253,16 +267,15 @@ public class VenueUI
             {
                 if (e.getActionCommand().equalsIgnoreCase("Create record"))
                 {
+                    String vehicleId= vehicleIdField.getText();
+                    String brand= brandField.getText();
+                    String model= modelField.getText();
+                    String year= yearField.getText();
+                    String regDate= regDateField.getText();
 
-                    String dayCareName = dayCareNameField.getText();
-                    String address  = addressField.getText();
-                    String phoneNum = phoneNumField.getText();
-                    String principalId  = principalIdField.getText();
-
-                    DayCareVenue  dcvn = DayCareVenueFactory.build(dayCareName, address, phoneNum, principalId);
-                    new ConsoleApp().post(dcvn, "http://localhost:8080/api/v1/day-care/venue/save");
-
-                    String columns [] = {"Daycare Name", "Address", "Phone Number", "Principal Id"};
+                    VehicleRegDetails  cr = VehicleRegDetailsFactory.createVehicleRegDetails(vehicleId, brand, model, year, regDate);
+                    new ConsoleApp().post(cr, "http://localhost:8080/api/v1/day-care/vehicleregdetails/save");
+                    String columns [] = {"Vehicle Id", "Brand", "Model", "Year", "Registration Date"};
                     tableModel = new DefaultTableModel(columns , 0);
 
                     createTable();
@@ -272,6 +285,7 @@ public class VenueUI
                     JOptionPane.showMessageDialog(null, "Record was successfully Created!");
                 }
 
+
                 if (e.getActionCommand().equalsIgnoreCase("delete"))
                 {
                     int result = JOptionPane.showConfirmDialog(null,"Are you sure you want to delete this record?", "Swing Tester",
@@ -280,10 +294,9 @@ public class VenueUI
 
                     if(result == JOptionPane.YES_OPTION)
                     {
-                        new ConsoleApp().delete(dcv.getDayCareName(), "http://localhost:8080/api/v1/day-care/venue/delete/");
-
-                        String columns [] = {"Daycare Name", "Address", "Phone Number", "Principal Id"};
-                        tableModel = new DefaultTableModel(columns , 0);
+                        new ConsoleApp().delete(vr.getVehicleId(), "http://localhost:8080/api/v1/day-care/vehicleregdetails/delete/");
+                        String columns[] = {"Vehicle Id", "Brand", "Model", "Year", "Registration Date"};
+                        tableModel = new DefaultTableModel(columns, 0);
 
                         createTable();
                         mouseListenerMethod();
@@ -301,11 +314,11 @@ public class VenueUI
 
                     if(result == JOptionPane.YES_OPTION)
                     {
-                        System.out.println(daycrven);
-                        new ConsoleApp().post(daycrven, "http://localhost:8080/api/v1/day-care/venue/save/");
+                        System.out.println(vrgd);
+                        new ConsoleApp().post(vrgd, "http://localhost:8080/api/v1/day-care/vehicleregdetails/save/");
 
-                        String columns [] = {"Daycare Name", "Address", "Phone Number", "Principal Id"};
-                        tableModel = new DefaultTableModel(columns , 0);
+                        String columns[] = {"Vehicle Id", "Brand", "Model", "Year", "Registration Date"};
+                        tableModel = new DefaultTableModel(columns, 0);
 
                         createTable();
                         mouseListenerMethod();
@@ -315,8 +328,8 @@ public class VenueUI
                     }
                     else
                     {
-                        String columns [] = {"Daycare Name", "Address", "Phone Number", "Principal Id"};
-                        tableModel = new DefaultTableModel(columns , 0);
+                        String columns[] = {"Vehicle Id", "Brand", "Model", "Year", "Registration Date"};
+                        tableModel = new DefaultTableModel(columns, 0);
 
                         createTable();
                         mouseListenerMethod();
@@ -333,7 +346,6 @@ public class VenueUI
 
                     crud.revalidate();
                     crud.repaint();
-
                 }
                 if (e.getActionCommand().equalsIgnoreCase("logout"))
                 {

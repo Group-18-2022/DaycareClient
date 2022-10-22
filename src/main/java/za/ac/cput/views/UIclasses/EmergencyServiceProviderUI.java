@@ -273,7 +273,7 @@ public class EmergencyServiceProviderUI
 
 
 
-                if (e.getActionCommand().equalsIgnoreCase("delete record"))
+                if (e.getActionCommand().equalsIgnoreCase("delete"))
                 {
                     int result = JOptionPane.showConfirmDialog(null,"Are you sure you want to delete this record?", "Swing Tester",
                             JOptionPane.YES_NO_OPTION,
