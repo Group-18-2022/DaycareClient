@@ -1,7 +1,8 @@
 package za.ac.cput.views.mainPanels;
 
-import za.ac.cput.views.UIclasses.LoginGUI;
-import za.ac.cput.views.UIclasses.VenueUI;
+import za.ac.cput.domain.ClassGroup;
+import za.ac.cput.domain.ClassRegister;
+import za.ac.cput.views.UIclasses.*;
 import za.ac.cput.views.mainGUI;
 
 import javax.imageio.ImageIO;
@@ -76,6 +77,7 @@ public class PrincipalPanel extends JFrame implements ActionListener
         this.childBTN = new JButton("Look at Children");
         this.venueBTN = new JButton("Manage the school's details");
         this.logoutBTN = new JButton("Logout");
+        logoutBTN.setBackground(Color.red);
 
         classRoomBTN = new JButton("Classrooms");
         doctorBTN = new JButton("Doctors");
@@ -95,10 +97,20 @@ public class PrincipalPanel extends JFrame implements ActionListener
 
     public JPanel principalGuiSetUp()
     {
-        classRoomBTN.addActionListener(this);
+
         childBTN.addActionListener(this);
+        classGroupBTN.addActionListener(this);
+        classRegisterBTN.addActionListener(this);
         venueBTN.addActionListener(this);
         logoutBTN.addActionListener(this);
+        doctorBTN.addActionListener(this);
+        classRoomBTN.addActionListener(this);
+        parentBTN.addActionListener(this);
+        espBTN.addActionListener(this);
+        incidentBTN.addActionListener(this);
+        principalBTN.addActionListener(this);
+
+
         logoutBtnPanel.add(logoutBTN);
 
         classRoomBTNpanel.add(classRoomBTN);
@@ -127,7 +139,7 @@ public class PrincipalPanel extends JFrame implements ActionListener
         mainButtonPanel.add(classRoomBTNpanel);
         mainButtonPanel.add(childBTNpanel);
         mainButtonPanel.add(venueBTNPanel);
-        mainButtonPanel.add(logoutBtnPanel);
+        //mainButtonPanel.add(logoutBtnPanel);
         mainButtonPanel.add(doctorBTNPanel);
         mainButtonPanel.add(parentBTNPanel);
         mainButtonPanel.add(classGroupBTNPanel);
@@ -139,8 +151,10 @@ public class PrincipalPanel extends JFrame implements ActionListener
         mainButtonPanel.add(secretaryBTNPanel);
         mainButtonPanel.add(teacherBTNPanel);
 
-        mainLblPanel.setLayout(new BoxLayout(mainLblPanel, BoxLayout.LINE_AXIS));
+        mainLblPanel.setLayout(new FlowLayout());
         mainLblPanel.add(mainLabel);
+        mainLblPanel.add(logoutBtnPanel);
+
 
         //mainLblPanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
         mainLblPanel.setPreferredSize(new Dimension(400, 60));
@@ -178,20 +192,94 @@ public class PrincipalPanel extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        if (e.getActionCommand().equalsIgnoreCase("manage classrooms")){}
-        if (e.getActionCommand().equalsIgnoreCase("look at children")){}
+        if (e.getActionCommand().equalsIgnoreCase("doctors"))
+        {
+            mainPanel.removeAll();
+            DoctorUI dui = new DoctorUI();
+            mainPanel.add(dui.venueSetUp());
+            mainPanel.revalidate();
+            mainPanel.repaint();
+
+        }
+        if (e.getActionCommand().equalsIgnoreCase("Class Groups"))
+        {
+            mainPanel.removeAll();
+            ClassGroupUI cgui = new ClassGroupUI();
+            mainPanel.add(cgui.groupSetUp());
+            mainPanel.revalidate();
+            mainPanel.repaint();
+
+        }
+        if (e.getActionCommand().equalsIgnoreCase("Registers"))
+        {
+            mainPanel.removeAll();
+
+            ClassRegisterUI creg = new ClassRegisterUI();
+            mainPanel.add(creg.registerSetUp());
+
+            mainPanel.revalidate();
+            mainPanel.repaint();
+        }
 
         if (e.getActionCommand().equalsIgnoreCase("manage the school's details"))
                 {
                     mainPanel.removeAll();
-
                     VenueUI vui = new VenueUI();
                     mainPanel.add(vui.venueSetUp());
-
                     mainPanel.revalidate();
                     mainPanel.repaint();
-
                 }
+        if (e.getActionCommand().equalsIgnoreCase("look at children"))
+        {
+            mainPanel.removeAll();
+            ChildUI chui = new ChildUI();
+            mainPanel.add(chui.childSetUp());
+            mainPanel.revalidate();
+            mainPanel.repaint();
+        }
+        if (e.getActionCommand().equalsIgnoreCase("classrooms"))
+        {
+            mainPanel.removeAll();
+            ClassroomUI clrui = new ClassroomUI();
+            mainPanel.add(clrui.classRoomSetUp());
+            mainPanel.revalidate();
+            mainPanel.repaint();
+        }
+        if (e.getActionCommand().equalsIgnoreCase("emergency services"))
+        {
+            mainPanel.removeAll();
+            EmergencyServiceProviderUI emspui = new EmergencyServiceProviderUI();
+            mainPanel.add(emspui.espSetUp());
+            mainPanel.revalidate();
+            mainPanel.repaint();
+        }
+        if (e.getActionCommand().equalsIgnoreCase("incidents"))
+        {
+            mainPanel.removeAll();
+            IncidentUI incui = new IncidentUI();
+            mainPanel.add(incui.incidentSetUp());
+            mainPanel.revalidate();
+            mainPanel.repaint();
+        }
+        if (e.getActionCommand().equalsIgnoreCase("parents"))
+        {
+            mainPanel.removeAll();
+            ParentUI parui = new ParentUI();
+            mainPanel.add(parui.parentSetUp());
+            mainPanel.revalidate();
+            mainPanel.repaint();
+        }
+        if (e.getActionCommand().equalsIgnoreCase("principals"))
+        {
+            mainPanel.removeAll();
+            PrincipalUI pincui = new PrincipalUI();
+            mainPanel.add(pincui.principalSetUp());
+            mainPanel.revalidate();
+            mainPanel.repaint();
+        }
+
+
+
         if (e.getActionCommand().equalsIgnoreCase("Logout"))
         {
             LoginGUI.killMain();

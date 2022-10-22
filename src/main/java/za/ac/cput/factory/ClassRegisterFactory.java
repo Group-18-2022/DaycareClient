@@ -11,13 +11,12 @@ import za.ac.cput.util.Helper;
  * **/
 public class ClassRegisterFactory {
 
-    public static ClassRegister createClassRegister(String rosterID, String teacherID,
-                                                    String childID, String classID, String date, int numOfPresStudents){
+    public static ClassRegister createClassRegister(String rosterID, String teacherID, String classID, String date, int numOfPresStudents){
 
 
         Helper.checkStringParam("Roster ID", rosterID);
         Helper.checkStringParam("Teacher ID", teacherID);
-        Helper.checkStringParam("ChildID", childID);
+        //Helper.checkStringParam("ChildID", childID);
         Helper.checkStringParam("Class ID", classID);
         Helper.checkStringParam("Date", date);
 
@@ -27,7 +26,7 @@ public class ClassRegisterFactory {
         return new ClassRegister.ClassRegisterBuilder()
                 .setRosterID(rosterID)
                 .setTeacherID(teacherID)
-                .setChildID(childID)
+                //.setChildID(childID)
                 .setClassID(classID)
                 .setDate(date)
                 .setNumOfPresStudents(numOfPresStudents)

@@ -32,7 +32,7 @@ public class CrudPanel
     private JButton deleteButton;
     private JButton updateButton;
     private JButton backHomeBTN;
-    private JButton logOutButton;
+    private JButton logOutButton, printButton;
     private JPanel homeButtonPanel, logoutBTNpanel, homeAndLogoutPanel;
 
     private Font headingFont;
@@ -65,9 +65,9 @@ public class CrudPanel
         readLbl.setFont(headingFont);
 
         createButton = new JButton("Create Record");
-
-        deleteButton = new JButton("Delete Record");
+        deleteButton = new JButton("Delete");
         updateButton = new JButton("Update");
+        printButton = new JButton("Print");
 
         backHomeBTN = new JButton("Back Home");
         backHomeBTN.setPreferredSize(new Dimension(100, 40));
@@ -97,10 +97,10 @@ public class CrudPanel
 
         readPanel.setLayout(new BoxLayout(readPanel, BoxLayout.PAGE_AXIS));
         readPanel.setPreferredSize(new Dimension(950, 400));
-        readPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.orange));
+        readPanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.orange));
 
         createPanel.setLayout(new BoxLayout(createPanel, BoxLayout.PAGE_AXIS));
-        createPanel.setBorder(BorderFactory.createMatteBorder(7, 4, 4, 4, Color.GREEN));
+        createPanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.GREEN));
 
         updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.PAGE_AXIS));
         updatePanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.black));
@@ -135,6 +135,7 @@ public class CrudPanel
 
         tableLblPanel.add(readLbl);
         tablePanel.add(panelTable);
+        tableButtonPanel.add(printButton);
         tableButtonPanel.add(updateButton);
 
         tableButtonPanel.add(deleteButton);
@@ -144,7 +145,7 @@ public class CrudPanel
         createCenterPanel.setLayout(new GridLayout(1, 2));
         createCenterPanel.add(panelCreate);
         //createCenterPanel.setPreferredSize(new Dimension(200, 90));
-        createCenterPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, new Color(22,140,210)));
+        createCenterPanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(22,140,210)));
 
         createButtonPanel.add(createButton);
 
@@ -159,6 +160,7 @@ public class CrudPanel
         backHomeBTN.addActionListener(al);
         logOutButton.addActionListener(al);
         updateButton.addActionListener(al);
+        printButton.addActionListener(al);
     }
 
     public void imageMethod() {

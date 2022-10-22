@@ -19,8 +19,8 @@ public class ClassRegister {
     @NotNull
     private String teacherID;
 
-    @NotNull
-    private String childID;
+    //@NotNull
+    //private String childID;
 
     @NotNull
     private String classID;
@@ -36,7 +36,7 @@ public class ClassRegister {
     private ClassRegister(ClassRegisterBuilder builder) {
         this.rosterID = rosterID;
         this.teacherID = teacherID;
-        this.childID = childID;
+        //this.childID = childID;
         this.classID = classID;
         this.date = date;
         this.numOfPresStudents = numOfPresStudents;
@@ -50,9 +50,12 @@ public class ClassRegister {
         return teacherID;
     }
 
+    /*
     public String getChildID() {
         return childID;
     }
+
+     */
 
     public String getClassID() {
         return classID;
@@ -71,7 +74,6 @@ public class ClassRegister {
         return "ClassRegister{" +
                 "rosterID='" + rosterID + '\'' +
                 ", teacherID=" + teacherID +
-                ", childID=" + childID +
                 ", classID=" + classID +
                 ", date='" + date + '\'' +
                 ", numOfPresStudents='" + numOfPresStudents + '\'' +
@@ -81,7 +83,6 @@ public class ClassRegister {
     public static class ClassRegisterBuilder{
         private String rosterID;
         private String teacherID;
-        private String childID;
         private String classID;
         private String date;
         private int numOfPresStudents;
@@ -96,10 +97,6 @@ public class ClassRegister {
             return this;
         }
 
-        public ClassRegisterBuilder setChildID(String childID) {
-            this.childID = childID;
-            return this;
-        }
 
         public ClassRegisterBuilder setClassID(String classID) {
             this.classID = classID;
@@ -119,7 +116,6 @@ public class ClassRegister {
         public ClassRegisterBuilder copy(ClassRegister classRegister) {
             this.rosterID = classRegister.rosterID;
             this.teacherID = classRegister.teacherID;
-            this.childID = classRegister.childID;
             this.classID = classRegister.classID;
             this.date = classRegister.date;
             this.numOfPresStudents = classRegister.numOfPresStudents;
