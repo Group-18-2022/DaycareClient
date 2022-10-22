@@ -61,22 +61,22 @@ public class Principal {
         private String dob;
 
         public Builder setPrincipalID(String principalID) {
-            this.principalID = this.principalID;
+            this.principalID = principalID;
             return this;
         }
 
         public Builder setFirstName(String firstName) {
-            this.firstName = this.firstName;
+            this.firstName = firstName;
             return  this;
         }
 
         public Builder setLastName(String lastName) {
-            this.lastName = this.lastName;
+            this.lastName = lastName;
             return this;
         }
 
         public Builder setDob(String dob) {
-            this.dob = this.dob;
+            this.dob = dob;
             return this;
         }
 

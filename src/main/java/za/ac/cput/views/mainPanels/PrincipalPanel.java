@@ -107,6 +107,7 @@ public class PrincipalPanel extends JFrame implements ActionListener
         espBTN.addActionListener(this);
         incidentBTN.addActionListener(this);
         principalBTN.addActionListener(this);
+        classRegisterBTN.addActionListener(this);
 
 
         logoutBtnPanel.add(logoutBTN);
@@ -148,6 +149,7 @@ public class PrincipalPanel extends JFrame implements ActionListener
         mainButtonPanel.add(principalBTNPanel);
         mainButtonPanel.add(secretaryBTNPanel);
         mainButtonPanel.add(teacherBTNPanel);
+        mainButtonPanel.add(classRegisterBTNPanel);
 
         mainLblPanel.setLayout(new FlowLayout());
         mainLblPanel.add(mainLabel);
