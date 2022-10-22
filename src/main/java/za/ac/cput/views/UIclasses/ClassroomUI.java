@@ -6,9 +6,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.data.jpa.repository.JpaRepository;
 import za.ac.cput.domain.ClassRoom;
 import za.ac.cput.factory.ClassRoomFactory;
+import za.ac.cput.views.StartApp;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
@@ -17,7 +17,6 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -306,8 +305,8 @@ public class ClassroomUI {
                 }
                 if (e.getActionCommand().equalsIgnoreCase("logout"))
                 {
-                    LoginGUI.killMain();
-                    LoginGUI newLogin = new LoginGUI();
+                    StartApp.killMain();
+                    StartApp newLogin = new StartApp();
                     newLogin.loginSetUp();
                 }
             }

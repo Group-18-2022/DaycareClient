@@ -1,9 +1,7 @@
 package za.ac.cput.views.mainPanels;
 
-import za.ac.cput.domain.ClassGroup;
-import za.ac.cput.domain.ClassRegister;
+import za.ac.cput.views.StartApp;
 import za.ac.cput.views.UIclasses.*;
-import za.ac.cput.views.mainGUI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,7 +14,7 @@ import java.io.IOException;
 
 public class PrincipalPanel extends JFrame implements ActionListener
 {
-    static mainGUI mgui;
+    static mainFrameContainer mgui;
     private final Font headingFont;
     private JPanel mainPanel;
     private JPanel mainButtonPanel, classRoomBTNpanel, childBTNpanel, venueBTNPanel, logoutBtnPanel;
@@ -282,8 +280,8 @@ public class PrincipalPanel extends JFrame implements ActionListener
 
         if (e.getActionCommand().equalsIgnoreCase("Logout"))
         {
-            LoginGUI.killMain();
-            LoginGUI newLogin = new LoginGUI();
+            StartApp.killMain();
+            StartApp newLogin = new StartApp();
             newLogin.loginSetUp();
         }
 

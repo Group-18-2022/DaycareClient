@@ -1,17 +1,16 @@
-package za.ac.cput.views.UIclasses;
+package za.ac.cput.views;
 
-import za.ac.cput.views.mainGUI;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
 import za.ac.cput.views.mainPanels.SecretaryPanel;
 import za.ac.cput.views.mainPanels.TeacherPanel;
+import za.ac.cput.views.mainPanels.mainFrameContainer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 
-public class LoginGUI implements ActionListener
+public class StartApp implements ActionListener
 {
     private JLabel usernameLbl, passwordLbl;
     private JTextField userField, passwordField;
@@ -21,9 +20,9 @@ public class LoginGUI implements ActionListener
 
     private static JFrame mainFrame;
 
-    static mainGUI mg;
+    static mainFrameContainer mg;
 
-    public LoginGUI()
+    public StartApp()
     {
         mainFrame = new JFrame("Login Frame");
         mainPanel = new JPanel();
@@ -115,7 +114,7 @@ public class LoginGUI implements ActionListener
 
     public void runMainGui()
     {
-        mainGUI mg = new mainGUI();
+        mainFrameContainer mg = new mainFrameContainer();
         mg.loadUserPanel(setUpUser(passwordField.getText()));
     }
 
@@ -125,9 +124,8 @@ public class LoginGUI implements ActionListener
         mg.getMainFrame().dispose();
     }
 
-
     public static void main(String[] args) {
-        LoginGUI newLogin = new LoginGUI();
+        StartApp newLogin = new StartApp();
         newLogin.loginSetUp();
     }
 }

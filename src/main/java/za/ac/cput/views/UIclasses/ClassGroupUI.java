@@ -7,10 +7,8 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import za.ac.cput.domain.ClassGroup;
-import za.ac.cput.domain.Doctor;
 import za.ac.cput.factory.ClassGroupFactory;
-import za.ac.cput.factory.ClassRoomFactory;
-import za.ac.cput.factory.DoctorFactory;
+import za.ac.cput.views.StartApp;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
@@ -332,8 +330,8 @@ public class ClassGroupUI
                 }
                 if (e.getActionCommand().equalsIgnoreCase("logout"))
                 {
-                    LoginGUI.killMain();
-                    LoginGUI newLogin = new LoginGUI();
+                    StartApp.killMain();
+                    StartApp newLogin = new StartApp();
                     newLogin.loginSetUp();
                 }
             }
