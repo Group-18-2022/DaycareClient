@@ -24,7 +24,7 @@ public class VehicleRegDetails {
     private String regDate;
 
     protected  VehicleRegDetails(){}
-    private VehicleRegDetails(Builder build){
+    private VehicleRegDetails(VehicleRegDetails.Builder build){
         this.vehicleId = build.vehicleId;
         this.brand = build.brand;
         this.model = build.model;
@@ -73,33 +73,33 @@ public class VehicleRegDetails {
         private String year;
         private String regDate;
 
-        public Builder setVehicleId(String brand) {
-            this.vehicleId = vehicleId;
+        public VehicleRegDetails.Builder setVehicleId(String id) {
+            this.vehicleId = id;
             return this;
         }
-        public Builder setBrand(String brand) {
+        public VehicleRegDetails.Builder setBrand(String brand) {
             this.brand = brand;
             return this;
         }
 
-        public Builder setModel(String model) {
+        public VehicleRegDetails.Builder setModel(String model) {
             this.model = model;
             return this;
         }
 
-        public Builder setYear(String year) {
+        public VehicleRegDetails.Builder setYear(String year) {
             this.year = year;
             return this;
         }
 
-        public Builder setRegDate(String regDate) {
+        public VehicleRegDetails.Builder setRegDate(String regDate) {
             this.regDate = regDate;
 
             return this;
         }
 
 
-        public Builder copy(VehicleRegDetails vehicleRegDetails){
+        public VehicleRegDetails.Builder copy(VehicleRegDetails vehicleRegDetails){
             this.vehicleId = vehicleRegDetails.vehicleId;
             this.brand = vehicleRegDetails.brand;
             this.model = vehicleRegDetails.model;

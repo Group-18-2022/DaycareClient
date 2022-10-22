@@ -98,7 +98,6 @@ public class PrincipalPanel extends JFrame implements ActionListener
 
         childBTN.addActionListener(this);
         classGroupBTN.addActionListener(this);
-        classRegisterBTN.addActionListener(this);
         venueBTN.addActionListener(this);
         logoutBTN.addActionListener(this);
         doctorBTN.addActionListener(this);
@@ -108,6 +107,7 @@ public class PrincipalPanel extends JFrame implements ActionListener
         incidentBTN.addActionListener(this);
         principalBTN.addActionListener(this);
         classRegisterBTN.addActionListener(this);
+        vehicleRegBTN.addActionListener(this);
 
 
         logoutBtnPanel.add(logoutBTN);
@@ -277,6 +277,15 @@ public class PrincipalPanel extends JFrame implements ActionListener
             mainPanel.revalidate();
             mainPanel.repaint();
         }
+        if (e.getActionCommand().equalsIgnoreCase("Vehicle Details"))
+        {
+            mainPanel.removeAll();
+            VehicleRegUI veregui = new VehicleRegUI();
+            mainPanel.add(veregui.vehicleRegSetUp());
+            mainPanel.revalidate();
+            mainPanel.repaint();
+        }
+
 
 
 
