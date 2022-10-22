@@ -12,15 +12,15 @@ import javax.validation.constraints.NotNull;
  * **/
 @Entity
 public class ClassRegister {
-    @NotNull
     @Id
     private String rosterID;
 
     @NotNull
     private String teacherID;
 
-    //@NotNull
-    //private String childID;
+    // @NotNull
+    // private String childID;
+    //This probably needs a bridging entity. There are many children in a roster, and a child will be in many rosters
 
     @NotNull
     private String classID;
@@ -34,12 +34,12 @@ public class ClassRegister {
     protected  ClassRegister(){}
 
     private ClassRegister(ClassRegisterBuilder builder) {
-        this.rosterID = rosterID;
-        this.teacherID = teacherID;
-        //this.childID = childID;
-        this.classID = classID;
-        this.date = date;
-        this.numOfPresStudents = numOfPresStudents;
+        this.rosterID = builder.rosterID;
+        this.teacherID = builder.teacherID;
+        //this.childID = builder.childID;
+        this.classID = builder.classID;
+        this.date = builder.date;
+        this.numOfPresStudents = builder.numOfPresStudents;
     }
 
     public String getRosterID() {
@@ -74,6 +74,7 @@ public class ClassRegister {
         return "ClassRegister{" +
                 "rosterID='" + rosterID + '\'' +
                 ", teacherID=" + teacherID +
+                //", childID=" + childID +
                 ", classID=" + classID +
                 ", date='" + date + '\'' +
                 ", numOfPresStudents='" + numOfPresStudents + '\'' +
@@ -83,6 +84,7 @@ public class ClassRegister {
     public static class ClassRegisterBuilder{
         private String rosterID;
         private String teacherID;
+        // private String childID;
         private String classID;
         private String date;
         private int numOfPresStudents;
@@ -97,6 +99,13 @@ public class ClassRegister {
             return this;
         }
 
+        /*
+        public ClassRegisterBuilder setChildID(String childID) {
+            this.childID = childID;
+            return this;
+        }
+
+         */
 
         public ClassRegisterBuilder setClassID(String classID) {
             this.classID = classID;
@@ -116,6 +125,7 @@ public class ClassRegister {
         public ClassRegisterBuilder copy(ClassRegister classRegister) {
             this.rosterID = classRegister.rosterID;
             this.teacherID = classRegister.teacherID;
+            //this.childID = classRegister.childID;
             this.classID = classRegister.classID;
             this.date = classRegister.date;
             this.numOfPresStudents = classRegister.numOfPresStudents;
