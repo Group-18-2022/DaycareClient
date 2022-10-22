@@ -12,6 +12,7 @@ import za.ac.cput.factory.DayCareVenueFactory;
 import za.ac.cput.factory.IncidentsFactory;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
+import za.ac.cput.views.mainPanels.PrincipalPanel;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -324,12 +325,22 @@ public class IncidentUI {
                     }
                 }
 
-                if (e.getActionCommand().equalsIgnoreCase("back home")) {
-                    System.out.println("Go Back Home");
-                }
-                if (e.getActionCommand().equalsIgnoreCase("logout")) {
-                    System.out.println("Log yourself out");
+                if (e.getActionCommand().equalsIgnoreCase("back home"))
+                {
+                    crud.removeAll();
 
+                    PrincipalPanel pp = new PrincipalPanel();
+                    crud.add(pp.principalGuiSetUp());
+
+                    crud.revalidate();
+                    crud.repaint();
+
+                }
+                if (e.getActionCommand().equalsIgnoreCase("logout"))
+                {
+                    LoginGUI.killMain();
+                    LoginGUI newLogin = new LoginGUI();
+                    newLogin.loginSetUp();
                 }
             }
         });

@@ -6,8 +6,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import za.ac.cput.domain.Parent;
-import za.ac.cput.factory.ParentFactory;
+import za.ac.cput.domain.DayCareVenue;
+import za.ac.cput.domain.Doctor;
+import za.ac.cput.factory.DayCareVenueFactory;
+import za.ac.cput.factory.DoctorFactory;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
@@ -25,93 +27,93 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParentUI
+public class DoctorUI
 {
-    private static OkHttpClient client = new OkHttpClient();
-    private JLabel parentIdLbl, firstNameLbl, lastNameLbl, addressLbl, phoneNumberLbl;
-    private JTextField parentIdField, firstNameField, lastNameField, addressField, phoneNumberField;
-    private JPanel parentIdPanel, firstNamePanel, lastNamePanel, addressPanel, phoneNumberPanel;
 
-    private JTable parentTable;
+    private static OkHttpClient client = new OkHttpClient();
+    private JLabel doctorIDLBL, practiceNameLBL, firstNameLBL, lastNameLBL, phoneNumberLBL;
+    private JTextField doctorIDField, practiceNameField, firstNameField, lastNameField, phoneNumberField;
+    private JPanel doctorIDPanel, practiceNamePanel, firstNamePanel, lastNamePanel, phoneNumberPanel;
+    private JTable doctorTable;
     private DefaultTableModel tableModel;
     private JScrollPane newPane;
 
-    private JPanel parentTablePanel;
-    private JPanel createParentPanel;
+    private JPanel doctorTablePanel;
+    private JPanel createDoctorPanel;
 
     JPanel crud;
 
     private CrudPanel crudPanel;
 
-    private Parent pr;
-    Parent prnt;
+    private Doctor doc;
+    Doctor dctr;
 
 
-    public ParentUI()
+    public DoctorUI()
     {
-        parentIdLbl = new JLabel("Parent ID");
-        firstNameLbl= new JLabel("First Name");
-        lastNameLbl= new JLabel("Last Name");
-        addressLbl= new JLabel("Address");
-        phoneNumberLbl= new JLabel("Phone Number");
+        doctorIDLBL = new JLabel("Doctor ID");
+        practiceNameLBL = new JLabel("Practice Name");
+        firstNameLBL = new JLabel("First Name");
+        lastNameLBL = new JLabel("Last Name");
+        phoneNumberLBL= new JLabel("Phone Number");
 
-        parentIdField = new JTextField();
+        doctorIDField = new JTextField();
+        practiceNameField = new JTextField();
         firstNameField = new JTextField();
         lastNameField = new JTextField();
-        addressField = new JTextField();
         phoneNumberField = new JTextField();
 
-        parentIdPanel = new JPanel();
+        doctorIDPanel = new JPanel();
+        practiceNamePanel = new JPanel();
         firstNamePanel = new JPanel();
         lastNamePanel = new JPanel();
-        addressPanel = new JPanel();
         phoneNumberPanel = new JPanel();
 
-        parentTable = new JTable();
-        String columns [] = {"Parent Id", "First Name", "Last Name", "Address", "Phone Number"};
+        doctorTablePanel = new JPanel();
+        createDoctorPanel = new JPanel();
+
+        doctorTable = new JTable();
+        String columns [] = {"Doctor ID","Practice Name", "First Name", "Last Name", "Phone Number"};
         tableModel = new DefaultTableModel(columns , 0);
         newPane = new JScrollPane();
-
-        parentTablePanel = new JPanel();
-        createParentPanel = new JPanel();
 
         crudPanel = new CrudPanel();
 
         modelListenerMethod();
         actionListenerMethod();
     }
-    public JPanel parentSetUp()
+    public JPanel venueSetUp()
     {
         createTable();
         mouseListenerMethod();
 
-        parentIdPanel.setLayout(new GridLayout(1, 2));
+        doctorIDPanel.setLayout(new GridLayout(1, 2));
+        practiceNamePanel.setLayout(new GridLayout(1, 2));
         firstNamePanel.setLayout(new GridLayout(1, 2));
         lastNamePanel.setLayout(new GridLayout(1, 2));
-        addressPanel.setLayout(new GridLayout(1, 2));
         phoneNumberPanel.setLayout(new GridLayout(1, 2));
 
-        createParentPanel.setLayout(new GridLayout(10, 0));
-        createParentPanel.add(parentIdPanel);
-        createParentPanel.add(firstNamePanel);
-        createParentPanel.add(lastNamePanel);
-        createParentPanel.add(addressPanel);
-        createParentPanel.add(phoneNumberPanel);
+        createDoctorPanel.setLayout(new GridLayout(10, 0));
+        createDoctorPanel.add(doctorIDPanel);
+        createDoctorPanel.add(practiceNamePanel);
+        createDoctorPanel.add(firstNamePanel);
+        createDoctorPanel.add(lastNamePanel);
+        createDoctorPanel.add(phoneNumberPanel);
 
-        parentIdPanel.add(parentIdLbl);
-        parentIdPanel.add(parentIdField);
-        firstNamePanel.add(firstNameLbl);
+        doctorIDPanel.add(doctorIDLBL);
+        doctorIDPanel.add(doctorIDField);
+        practiceNamePanel.add(practiceNameLBL);
+        practiceNamePanel.add(practiceNameField);
+        firstNamePanel.add(firstNameLBL);
         firstNamePanel.add(firstNameField);
-        lastNamePanel.add(lastNameLbl);
+        lastNamePanel.add(lastNameLBL);
         lastNamePanel.add(lastNameField);
-        addressPanel.add(addressLbl);
-        addressPanel.add(addressField);
-        phoneNumberPanel.add(phoneNumberLbl);
+        phoneNumberPanel.add(phoneNumberLBL);
         phoneNumberPanel.add(phoneNumberField);
 
-        parentTablePanel.add(newPane);
+        doctorTablePanel.add(newPane);
 
-        crud = crudPanel.crudSetUp(createParentPanel, parentTablePanel);
+        crud = crudPanel.crudSetUp(createDoctorPanel, doctorTablePanel);
         return crud;
     }
 
@@ -134,7 +136,7 @@ public class ParentUI
             {
                 JSONObject identity = identities.getJSONObject(i);
                 Gson g = new Gson();
-                Object o = g.fromJson(identity.toString(), Parent.class);
+                Object o = g.fromJson(identity.toString(), Doctor.class);
                 objectList.add(o);
             }
         } catch (IOException e) {
@@ -146,18 +148,17 @@ public class ParentUI
     {
         try
         {
-            parentTable = new JTable(tableModel);
-            newPane.setViewportView(parentTable);
+            doctorTable = new JTable(tableModel);
+            newPane.setViewportView(doctorTable);
             newPane.setPreferredSize(new Dimension(900, 200));
 
-            java.util.List parentList = getAll("http://localhost:8080/api/v1/day-care/parent/all");
-            java.util.List<Parent> parentList1 =  parentList;
+            java.util.List docList = getAll("http://localhost:8080/api/v1/day-care/doctor/all");
+            java.util.List<Doctor> docList1 =  docList;
 
-            for(int i = 0; i < parentList.size(); i++ )
+            for(int i = 0; i < docList.size(); i++ )
             {
-
-                Object[] objs = {parentList1.get(i).getParentID(), parentList1.get(i).getFirstName(),
-                        parentList1.get(i).getLastName(), parentList1.get(i).getAddress(), parentList1.get(i).getPhoneNumber()};
+                Object[] objs = {docList1.get(i).getDoctorID(), docList1.get(i).getPracticeName(), docList1.get(i).getFirstName(),
+                        docList1.get(i).getLastName(), docList1.get(i).getPhoneNumber()};
                 tableModel.addRow(objs);
             }
         }
@@ -167,20 +168,20 @@ public class ParentUI
         }
     }
 
-    public Parent getTableItem(int rowNum)
+    public Doctor getTableItem(int rowNum)
     {
-        Parent newParent = null;
+        Doctor newDoc = null;
         try
         {
-            Object obj  =  getAll("http://localhost:8080/api/v1/day-care/parent/all");
-            java.util.List list = (List<Parent>)obj;
-            newParent = (Parent) list.get(rowNum);
+            Object obj  =  getAll("http://localhost:8080/api/v1/day-care/doctor/all");
+            java.util.List list = (List<Doctor>)obj;
+            newDoc = (Doctor) list.get(rowNum);
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
-        return newParent;
+        return newDoc;
     }
 
     public void createTableModelListener(TableModelListener tml)
@@ -198,44 +199,44 @@ public class ParentUI
                 tableModel.addTableModelListener(this);
                 int firstRow = e.getFirstRow();
 
-                String parentId = "";
-                String firstName = "";
-                String lastName = "";
-                String address = "";
-                String phoneNumber = "";
+                String doctorID = "";
+                String practiceName = "";;
+                String firstName = "";;
+                String lastName = "";;
+                String phoneNumber = "";;
 
-                for(int j = 0; j < parentTable.getColumnCount(); j++)
+                for(int j = 0; j < doctorTable.getColumnCount(); j++)
                 {
                     if(j==0)
                     {
-                        parentId =  parentTable.getModel().getValueAt(firstRow ,j).toString();
+                        doctorID =  doctorTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==1)
                     {
-                        firstName = parentTable.getModel().getValueAt(firstRow ,j).toString();
+                        practiceName = doctorTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==2)
                     {
-                        lastName =  parentTable.getModel().getValueAt(firstRow ,j).toString();
+                        firstName =  doctorTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==3)
                     {
-                        address = parentTable.getModel().getValueAt(firstRow ,j).toString();
+                        lastName = doctorTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==4)
                     {
-                        phoneNumber = parentTable.getModel().getValueAt(firstRow ,j).toString();
+                        phoneNumber = doctorTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                 }
-                prnt = ParentFactory.buildParent(parentId, firstName, lastName, address, phoneNumber);
+                dctr = DoctorFactory.buildDoctor(doctorID, practiceName, firstName, lastName, phoneNumber);
             }});
 
-        System.out.println(prnt);
+        System.out.println(dctr);
     }
 
     public void createMouseListener(MouseListener ml)
     {
-        parentTable.addMouseListener(ml);
+        doctorTable.addMouseListener(ml);
     }
 
     public void mouseListenerMethod()
@@ -244,7 +245,7 @@ public class ParentUI
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                pr = getTableItem(parentTable.getSelectedRow());
+                doc = getTableItem(doctorTable.getSelectedRow());
             }
             @Override
             public void mousePressed(MouseEvent e) {}
@@ -257,69 +258,33 @@ public class ParentUI
         });
     }
 
-    public String validateStrings()
-    {
-        String stringRegex = "^[a-zA-Z]*$";
-        return stringRegex;
-    }
-    public String validateNumbers()
-    {
-        String numberRegex = "^[0-9]*$";
-        return numberRegex;
-    }
-    public boolean allValidators()
-    {
-        boolean validate = true;
-/*
-        if(     roomNumberField.getText().matches(validateStrings()) ||
-                roomNumberField.getText().matches(validateNumbers()) &&
-                occupancyField.getText().matches(validateStrings()) ||
-                occupancyField.getText().matches(validateNumbers())
-            )
-        {
-            validate = true;
-
-        }
-
- */
-        return validate;
-    }
-
-
     public void actionListenerMethod()
     {
         crudPanel.createBtnAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if(allValidators())
+                if (e.getActionCommand().equalsIgnoreCase("Create record"))
                 {
-                    if (e.getActionCommand().equalsIgnoreCase("Create record"))
-                    {
-                        String parentId = parentIdField.getText();
-                        String firstName = firstNameField.getText();
-                        String lastName = lastNameField.getText();
-                        String address = addressField.getText();
-                        String phoneNumber = phoneNumberField.getText();
 
-                        Parent  par = ParentFactory.buildParent(parentId, firstName, lastName, address, phoneNumber);
-                        new ConsoleApp().post(par, "http://localhost:8080/api/v1/day-care/parent/save");
-                        String columns [] = {"Parent Id", "First Name", "Last Name", "Address", "Phone Number"};
-                        tableModel = new DefaultTableModel(columns , 0);
+                    String doctorID = doctorIDField.getText();
+                    String practiceName = practiceNameField.getText();
+                    String firstName = firstNameField.getText();
+                    String lastName = lastNameField.getText();
+                    String phoneNumber = phoneNumberField.getText();
 
-                        createTable();
-                        mouseListenerMethod();
-                        modelListenerMethod();
+                    Doctor  dc = DoctorFactory.buildDoctor(doctorID, practiceName, firstName, lastName, phoneNumber);
+                    new ConsoleApp().post(dc, "http://localhost:8080/api/v1/day-care/doctor/save");
 
-                        JOptionPane.showMessageDialog(null, "Record was successfully Created!");
-                    }
+                    String columns [] = {"Doctor ID","Practice Name", "First Name", "Last Name", "Phone Number"};
+                    tableModel = new DefaultTableModel(columns , 0);
 
-                }else
-                {
-                    JOptionPane.showMessageDialog(null, "Enter valid values only");
+                    createTable();
+                    mouseListenerMethod();
+                    modelListenerMethod();
 
+                    JOptionPane.showMessageDialog(null, "Record was successfully Created!");
                 }
-
 
                 if (e.getActionCommand().equalsIgnoreCase("delete record"))
                 {
@@ -329,8 +294,9 @@ public class ParentUI
 
                     if(result == JOptionPane.YES_OPTION)
                     {
-                        new ConsoleApp().delete(pr.getParentID(), "http://localhost:8080/api/v1/day-care/parent/delete/");
-                        String columns [] = {"Parent Id", "First Name", "Last Name", "Address", "Phone Number"};
+                        new ConsoleApp().delete(doc.getDoctorID(), "http://localhost:8080/api/v1/day-care/doctor/delete/");
+
+                        String columns [] = {"Doctor ID","Practice Name", "First Name", "Last Name", "Phone Number"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
@@ -349,10 +315,10 @@ public class ParentUI
 
                     if(result == JOptionPane.YES_OPTION)
                     {
-                        System.out.println(prnt);
-                        new ConsoleApp().post(prnt, "http://localhost:8080/api/v1/day-care/parent/save/");
+                        System.out.println(dctr);
+                        new ConsoleApp().post(dctr, "http://localhost:8080/api/v1/day-care/doctor/save/");
 
-                        String columns [] = {"Parent Id", "First Name", "Last Name", "Address", "Phone Number"};
+                        String columns [] = {"Doctor ID","Practice Name", "First Name", "Last Name", "Phone Number"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
@@ -363,7 +329,7 @@ public class ParentUI
                     }
                     else
                     {
-                        String columns [] = {"Parent Id", "First Name", "Last Name", "Address", "Phone Number"};
+                        String columns [] = {"Doctor ID","Practice Name", "First Name", "Last Name", "Phone Number"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
@@ -392,4 +358,5 @@ public class ParentUI
             }
         });
     }
+
 }

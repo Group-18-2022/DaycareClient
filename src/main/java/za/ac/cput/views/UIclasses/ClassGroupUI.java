@@ -6,8 +6,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import za.ac.cput.domain.EmergencyServiceProvider;
-import za.ac.cput.factory.ESPFactory;
+import za.ac.cput.domain.ClassGroup;
+import za.ac.cput.domain.Doctor;
+import za.ac.cput.factory.ClassGroupFactory;
+import za.ac.cput.factory.ClassRoomFactory;
+import za.ac.cput.factory.DoctorFactory;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
@@ -25,50 +28,46 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmergencyServiceProviderUI
+public class ClassGroupUI
 {
     private static OkHttpClient client = new OkHttpClient();
-    private JLabel serviceIdLbl, serviceNameLbl, serviceTypeLbl, phoneNumLbl;
-    private JTextField serviceIdField, serviceNameField, serviceTypeField, phoneNumField;
-    private JPanel serviceIdPanel, serviceNamePanel, serviceTypePanel, phoneNumPanel;
-
-    private JTable espTable;
+    private JLabel classIDLBL, numOfRegStudentLBL, isJuniorLBL;
+    private JTextField classIDField, numOfRegStudentField, isJuniorField;
+    private JPanel classIDPanel, numOfRegStudentPanel, isJuniorPanel;
+    private JTable groupTable;
     private DefaultTableModel tableModel;
     private JScrollPane newPane;
 
-    private JPanel espTablePanel;
-    private JPanel createEspPanel;
+    private JPanel groupTablePanel;
+    private JPanel createGroupPanel;
 
     JPanel crud;
 
     private CrudPanel crudPanel;
 
-    private EmergencyServiceProvider es;
-    EmergencyServiceProvider emspr;
+    private ClassGroup cgr;
+    ClassGroup clsgrp;
 
 
-    public EmergencyServiceProviderUI()
+    public ClassGroupUI()
     {
-        serviceIdLbl= new JLabel("Service ID");
-        serviceNameLbl= new JLabel("Service Name");
-        serviceTypeLbl= new JLabel("Service Type");
-        phoneNumLbl= new JLabel("Phone Number");
+        classIDLBL = new JLabel("Class ID");
+        numOfRegStudentLBL = new JLabel("Number of Students");
+        isJuniorLBL = new JLabel("Is Junior (true/false)");
 
-        serviceIdField = new JTextField();
-        serviceNameField = new JTextField();
-        serviceTypeField  = new JTextField();
-        phoneNumField  = new JTextField();
+        classIDField = new JTextField();
+        numOfRegStudentField= new JTextField();
+        isJuniorField = new JTextField();
 
-        serviceIdPanel= new JPanel();
-        serviceNamePanel = new JPanel();
-        serviceTypePanel = new JPanel();
-        phoneNumPanel = new JPanel();
+        classIDPanel = new JPanel();
+        numOfRegStudentPanel= new JPanel();
+        isJuniorPanel = new JPanel();
 
-        espTablePanel = new JPanel();
-        createEspPanel = new JPanel();
+        groupTablePanel = new JPanel();
+        createGroupPanel = new JPanel();
 
-        espTable = new JTable();
-        String columns [] = {"Service Id", "Service Name", "Service Type", "Phone Number"};
+        groupTable = new JTable();
+        String columns [] = {"Class ID","Number Of Students", "Is Junior"};
         tableModel = new DefaultTableModel(columns , 0);
         newPane = new JScrollPane();
 
@@ -77,34 +76,30 @@ public class EmergencyServiceProviderUI
         modelListenerMethod();
         actionListenerMethod();
     }
-    public JPanel espSetUp()
+    public JPanel groupSetUp()
     {
         createTable();
         mouseListenerMethod();
 
-        serviceIdPanel.setLayout(new GridLayout(1, 2));
-        serviceNamePanel.setLayout(new GridLayout(1, 2));
-        serviceTypePanel.setLayout(new GridLayout(1, 2));
-        phoneNumPanel.setLayout(new GridLayout(1, 2));
+        classIDPanel.setLayout(new GridLayout(1, 2));
+        numOfRegStudentPanel.setLayout(new GridLayout(1, 2));
+        isJuniorPanel.setLayout(new GridLayout(1, 2));
 
-        createEspPanel.setLayout(new GridLayout(10, 0));
-        createEspPanel.add(serviceIdPanel);
-        createEspPanel.add(serviceNamePanel);
-        createEspPanel.add(serviceTypePanel);
-        createEspPanel.add(phoneNumPanel);
+        createGroupPanel.setLayout(new GridLayout(10, 0));
+        createGroupPanel.add(classIDPanel);
+        createGroupPanel.add(numOfRegStudentPanel);
+        createGroupPanel.add(isJuniorPanel);
 
-        serviceIdPanel.add(serviceIdLbl);
-        serviceIdPanel.add(serviceIdField);
-        serviceNamePanel.add(serviceNameLbl);
-        serviceNamePanel.add(serviceNameField);
-        serviceTypePanel.add(serviceTypeLbl);
-        serviceTypePanel.add(serviceTypeField);
-        phoneNumPanel.add(phoneNumLbl);
-        phoneNumPanel.add(phoneNumField);
+        classIDPanel.add(classIDLBL);
+        classIDPanel.add(classIDField);
+        numOfRegStudentPanel.add(numOfRegStudentLBL);
+        numOfRegStudentPanel.add(numOfRegStudentField);
+        isJuniorPanel.add(isJuniorLBL);
+        isJuniorPanel.add(isJuniorField);
 
-        espTablePanel.add(newPane);
+        groupTablePanel.add(newPane);
 
-        crud = crudPanel.crudSetUp(createEspPanel, espTablePanel);
+        crud = crudPanel.crudSetUp(createGroupPanel, groupTablePanel);
         return crud;
     }
 
@@ -127,7 +122,7 @@ public class EmergencyServiceProviderUI
             {
                 JSONObject identity = identities.getJSONObject(i);
                 Gson g = new Gson();
-                Object o = g.fromJson(identity.toString(), EmergencyServiceProvider.class);
+                Object o = g.fromJson(identity.toString(), ClassGroup.class);
                 objectList.add(o);
             }
         } catch (IOException e) {
@@ -139,17 +134,17 @@ public class EmergencyServiceProviderUI
     {
         try
         {
-            espTable = new JTable(tableModel);
-            newPane.setViewportView(espTable);
+            groupTable = new JTable(tableModel);
+            newPane.setViewportView(groupTable);
             newPane.setPreferredSize(new Dimension(900, 200));
 
-            java.util.List espList = getAll("http://localhost:8080/api/v1/day-care/esp/all");
-            java.util.List<EmergencyServiceProvider> espList1 =  espList;
+            java.util.List grpList = getAll("http://localhost:8080/api/v1/day-care/classgroup/all");
+            java.util.List<ClassGroup> grpList1 =  grpList;
 
-            for(int i = 0; i < espList.size(); i++ )
+            for(int i = 0; i < grpList.size(); i++ )
             {
-                Object[] objs = {espList1.get(i).getServiceID(), espList1.get(i).getServiceName(),
-                        espList1.get(i).getType(), espList1.get(i).getPhoneNum()};
+                Object[] objs = {grpList1.get(i).getClassID(), grpList1.get(i).getNumOfRegStudent(),
+                        grpList1.get(i).isJunior()};
                 tableModel.addRow(objs);
             }
         }
@@ -159,20 +154,20 @@ public class EmergencyServiceProviderUI
         }
     }
 
-    public EmergencyServiceProvider getTableItem(int rowNum)
+    public ClassGroup getTableItem(int rowNum)
     {
-        EmergencyServiceProvider newEsp = null;
+        ClassGroup newGrp = null;
         try
         {
-            Object obj  =  getAll("http://localhost:8080/api/v1/day-care/esp/all");
-            java.util.List list = (List<EmergencyServiceProvider>)obj;
-            newEsp = (EmergencyServiceProvider) list.get(rowNum);
+            Object obj  =  getAll("http://localhost:8080/api/v1/day-care/classgroup/all");
+            java.util.List list = (List<ClassGroup>)obj;
+            newGrp = (ClassGroup) list.get(rowNum);
         }
         catch(Exception e)
         {
             System.out.println(e);
         }
-        return newEsp;
+        return newGrp;
     }
 
     public void createTableModelListener(TableModelListener tml)
@@ -190,39 +185,39 @@ public class EmergencyServiceProviderUI
                 tableModel.addTableModelListener(this);
                 int firstRow = e.getFirstRow();
 
-                String serviceId = "";
-                String serviceName = "";
-                String serviceType = "";
-                String phoneNum = "";
+                String classID = "";
+                int numOfRegStudent= 0;
+                String numOfRegStudentStr = "";
+                boolean isJunior = false;
+                String isJuniorStr = "";
 
-                for(int j = 0; j < espTable.getColumnCount(); j++)
+                for(int j = 0; j < groupTable.getColumnCount(); j++)
                 {
                     if(j==0)
                     {
-                        serviceId =  espTable.getModel().getValueAt(firstRow ,j).toString();
+                        classID =  groupTable.getModel().getValueAt(firstRow ,j).toString();
                     }
                     if(j==1)
                     {
-                        serviceName = espTable.getModel().getValueAt(firstRow ,j).toString();
+                        numOfRegStudentStr = groupTable.getModel().getValueAt(firstRow ,j).toString();
+                        numOfRegStudent = Integer.parseInt(numOfRegStudentStr);
                     }
                     if(j==2)
                     {
-                        serviceType =  espTable.getModel().getValueAt(firstRow ,j).toString();
+                        isJuniorStr =  groupTable.getModel().getValueAt(firstRow ,j).toString();
+                        isJunior = Boolean.parseBoolean(isJuniorStr);
                     }
-                    if(j==3)
-                    {
-                        phoneNum = espTable.getModel().getValueAt(firstRow ,j).toString();
-                    }
+
                 }
-                emspr = ESPFactory.createESP(serviceId, serviceName, serviceType, phoneNum);
+                clsgrp = ClassGroupFactory.createClassGroup(classID, numOfRegStudent, isJunior);
             }});
 
-        System.out.println(emspr);
+        System.out.println(clsgrp);
     }
 
     public void createMouseListener(MouseListener ml)
     {
-        espTable.addMouseListener(ml);
+        groupTable.addMouseListener(ml);
     }
 
     public void mouseListenerMethod()
@@ -231,7 +226,7 @@ public class EmergencyServiceProviderUI
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                es = getTableItem(espTable.getSelectedRow());
+                cgr = getTableItem(groupTable.getSelectedRow());
             }
             @Override
             public void mousePressed(MouseEvent e) {}
@@ -250,27 +245,27 @@ public class EmergencyServiceProviderUI
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                    if (e.getActionCommand().equalsIgnoreCase("Create record"))
-                    {
-                        String serviceId = serviceIdField.getText();
-                        String serviceName = serviceNameField.getText();
-                        String serviceType = serviceTypeField.getText();
-                        String phoneNum = phoneNumField.getText();
+                if (e.getActionCommand().equalsIgnoreCase("Create record"))
+                {
 
-                        EmergencyServiceProvider  espr = ESPFactory.createESP(serviceId, serviceName, serviceType, phoneNum);
-                        new ConsoleApp().post(espr, "http://localhost:8080/api/v1/day-care/esp/save");
+                    String classID = classIDField.getText();
+                    String numOfRegStudentStr = numOfRegStudentField.getText();
+                    int numOfRegStudent = Integer.parseInt(numOfRegStudentStr);
+                    String isJuniorStr = isJuniorField.getText();
+                    boolean isJunior = Boolean.parseBoolean(isJuniorStr);
 
-                        String columns [] = {"Service Id", "Service Name", "Service Type", "Phone Number"};
-                        tableModel = new DefaultTableModel(columns , 0);
+                    ClassGroup  cg = ClassGroupFactory.createClassGroup(classID, numOfRegStudent, isJunior);
+                    new ConsoleApp().post(cg, "http://localhost:8080/api/v1/day-care/classgroup/save");
 
-                        createTable();
-                        mouseListenerMethod();
-                        modelListenerMethod();
+                    String columns [] = {"Class ID","Number Of Students", "Is Junior"};
+                    tableModel = new DefaultTableModel(columns , 0);
 
-                        JOptionPane.showMessageDialog(null, "Record was successfully Created!");
-                    }
+                    createTable();
+                    mouseListenerMethod();
+                    modelListenerMethod();
 
-
+                    JOptionPane.showMessageDialog(null, "Record was successfully Created!");
+                }
 
                 if (e.getActionCommand().equalsIgnoreCase("delete record"))
                 {
@@ -280,9 +275,9 @@ public class EmergencyServiceProviderUI
 
                     if(result == JOptionPane.YES_OPTION)
                     {
-                        new ConsoleApp().delete(es.getServiceID(), "http://localhost:8080/api/v1/day-care/esp/delete/");
+                        new ConsoleApp().delete(cgr.getClassID(), "http://localhost:8080/api/v1/day-care/classgroup/delete/");
 
-                        String columns [] = {"Service Id", "Service Name", "Service Type", "Phone Number"};
+                        String columns [] = {"Class ID","Number Of Students", "Is Junior"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
@@ -301,10 +296,10 @@ public class EmergencyServiceProviderUI
 
                     if(result == JOptionPane.YES_OPTION)
                     {
-                        System.out.println(emspr);
-                        new ConsoleApp().post(emspr, "http://localhost:8080/api/v1/day-care/esp/save/");
+                        System.out.println(clsgrp);
+                        new ConsoleApp().post(clsgrp, "http://localhost:8080/api/v1/day-care/classgroup/save/");
 
-                        String columns [] = {"Service Id", "Service Name", "Service Type", "Phone Number"};
+                        String columns [] = {"Class ID","Number Of Students", "Is Junior"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();
@@ -315,7 +310,7 @@ public class EmergencyServiceProviderUI
                     }
                     else
                     {
-                        String columns [] = {"Service Id", "Service Name", "Service Type", "Phone Number"};
+                        String columns [] = {"Class ID","Number Of Students", "Is Junior"};
                         tableModel = new DefaultTableModel(columns , 0);
 
                         createTable();

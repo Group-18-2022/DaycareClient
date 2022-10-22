@@ -5,17 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6eaaffaa-3e73-4b28-98c1-1f101e010994" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/domain/Driver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/domain/VehicleRegDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/factory/DriverFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/factory/VehicleRegDetailsFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/ClassGroupUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/ClassRegisterUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/DoctorUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/LoginGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/LoginGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/domain/ClassRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/domain/ClassRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/factory/ClassRegisterFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/factory/ClassRegisterFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/EmergencyServiceProviderUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/EmergencyServiceProviderUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/IncidentUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/IncidentUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/ParentUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/ParentUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/CrudPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/CrudPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/PrincipalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/PrincipalPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/SecretaryPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/SecretaryPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/TeacherPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/TeacherPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/za/ac/cput/util/Helper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/za/ac/cput/util/Helper.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,16 +63,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "extract.method.default.visibility": "private",
-    "last_opened_file_path": "C:/Users/Trevor/Desktop/ADP 3 Project/DaycareClient/src/main/java/za/ac/cput/factory",
-    "spring.configuration.checksum": "f03351bc7fde874ba6ca2e0fd8285c5d"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Trevor/Desktop/ADP 3 Project/DaycareClient/src/main/java/za/ac/cput/factory&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;f03351bc7fde874ba6ca2e0fd8285c5d&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Trevor\Desktop\ADP 3 Project\DaycareClient\src\main\java\za\ac\cput\factory" />
