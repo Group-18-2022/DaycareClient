@@ -7,9 +7,8 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import za.ac.cput.domain.ClassRegister;
-import za.ac.cput.domain.Doctor;
 import za.ac.cput.factory.ClassRegisterFactory;
-import za.ac.cput.factory.DoctorFactory;
+import za.ac.cput.views.StartApp;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
@@ -355,8 +354,8 @@ public class ClassRegisterUI
                 }
                 if (e.getActionCommand().equalsIgnoreCase("logout"))
                 {
-                    LoginGUI.killMain();
-                    LoginGUI newLogin = new LoginGUI();
+                    StartApp.killMain();
+                    StartApp newLogin = new StartApp();
                     newLogin.loginSetUp();
                 }
             }

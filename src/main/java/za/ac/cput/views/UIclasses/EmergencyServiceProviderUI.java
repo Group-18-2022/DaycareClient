@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import za.ac.cput.domain.EmergencyServiceProvider;
 import za.ac.cput.factory.ESPFactory;
+import za.ac.cput.views.StartApp;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
@@ -337,8 +338,8 @@ public class EmergencyServiceProviderUI
                 }
                 if (e.getActionCommand().equalsIgnoreCase("logout"))
                 {
-                    LoginGUI.killMain();
-                    LoginGUI newLogin = new LoginGUI();
+                    StartApp.killMain();
+                    StartApp newLogin = new StartApp();
                     newLogin.loginSetUp();
                 }
             }

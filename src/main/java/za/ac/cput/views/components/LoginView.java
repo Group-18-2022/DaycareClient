@@ -1,4 +1,4 @@
-package za.ac.cput.views;
+package za.ac.cput.views.components;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

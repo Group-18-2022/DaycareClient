@@ -6,10 +6,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import za.ac.cput.domain.DayCareVenue;
 import za.ac.cput.domain.Incidents;
-import za.ac.cput.factory.DayCareVenueFactory;
 import za.ac.cput.factory.IncidentsFactory;
+import za.ac.cput.views.StartApp;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
@@ -338,8 +337,8 @@ public class IncidentUI {
                 }
                 if (e.getActionCommand().equalsIgnoreCase("logout"))
                 {
-                    LoginGUI.killMain();
-                    LoginGUI newLogin = new LoginGUI();
+                    StartApp.killMain();
+                    StartApp newLogin = new StartApp();
                     newLogin.loginSetUp();
                 }
             }

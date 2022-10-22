@@ -1,7 +1,5 @@
 package za.ac.cput.views.components;
 
-import za.ac.cput.views.LoginView;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
