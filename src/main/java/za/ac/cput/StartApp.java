@@ -90,15 +90,19 @@ public class StartApp implements ActionListener
     {
         if(userField.getText().equalsIgnoreCase("principal") && loginValue.equalsIgnoreCase("123"))
         {
+            mainFrame.dispose();
             PrincipalPanel pp = new PrincipalPanel();
+
 
             return pp.principalGuiSetUp();
         } else if (userField.getText().equalsIgnoreCase("teacher") && loginValue.equalsIgnoreCase("1234"))
         {
+            mainFrame.dispose();
             TeacherPanel tp = new TeacherPanel();
             return tp.teacherGuiSetUp();
         } else if (userField.getText().equalsIgnoreCase("secretary") && loginValue.equalsIgnoreCase("12345"))
         {
+            mainFrame.dispose();
             SecretaryPanel sp = new SecretaryPanel();
             return sp.secretaryGuiSetUp();
         }
@@ -121,6 +125,7 @@ public class StartApp implements ActionListener
         pass = passwordField.getText();
         if (e.getActionCommand().equalsIgnoreCase("Enter"))
         {
+
             runMainGui();
         }
     }
