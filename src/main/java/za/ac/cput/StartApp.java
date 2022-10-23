@@ -16,7 +16,7 @@ public class StartApp implements ActionListener
     private JTextField userField, passwordField;
     private JButton enterButton;
 
-    private JPanel usernamePanel, passwordPanel, enterButtonPanel, mainPanel;
+    private JPanel usernamePanel, passwordPanel, enterButtonPanel, mainPanel, colouredPanel;
 
     private static JFrame mainFrame;
 
@@ -26,6 +26,7 @@ public class StartApp implements ActionListener
     {
         mainFrame = new JFrame("Login Frame");
         mainPanel = new JPanel();
+        mainPanel.setPreferredSize(new Dimension(450, 110));
 
         usernameLbl = new JLabel("username");
         passwordLbl = new JLabel("password");
@@ -36,6 +37,12 @@ public class StartApp implements ActionListener
         passwordField.setText("123");
 
         enterButton = new JButton("Enter");
+
+        colouredPanel = new JPanel();
+        colouredPanel.setLayout(new FlowLayout());
+        colouredPanel.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.orange));
+        //colouredPanel.setPreferredSize(new Dimension(400, 85));
+
 
         usernamePanel = new JPanel();
         usernamePanel.setPreferredSize(new Dimension(400, 20));
@@ -63,9 +70,11 @@ public class StartApp implements ActionListener
 
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 
-        mainPanel.add(usernamePanel);
-        mainPanel.add(passwordPanel);
-        mainPanel.add(enterButtonPanel);
+        colouredPanel.add(usernamePanel);
+        colouredPanel.add(passwordPanel);
+        colouredPanel.add(enterButtonPanel);
+
+        mainPanel.add(colouredPanel);
 
         mainFrame.add(mainPanel);
 

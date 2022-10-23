@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6eaaffaa-3e73-4b28-98c1-1f101e010994" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/VehicleRegUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/domain/VehicleRegDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/domain/VehicleRegDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/ChildUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/ChildUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/ClassroomUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/ClassroomUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/EmergencyServiceProviderUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/EmergencyServiceProviderUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/IncidentUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/IncidentUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/StartApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/StartApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/VenueUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/UIclasses/VenueUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/PrincipalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/PrincipalPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/CrudPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/za/ac/cput/views/mainPanels/CrudPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +78,7 @@
       <recent name="za.ac.cput.views" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="za.ac.cput.views.mainPanels" />
       <recent name="za.ac.cput.domain" />
       <recent name="za.ac.cput.factory" />
     </key>
