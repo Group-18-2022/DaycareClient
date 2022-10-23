@@ -13,7 +13,8 @@ import java.awt.event.ActionListener;
 public class StartApp implements ActionListener
 {
     private JLabel usernameLbl, passwordLbl;
-    private JTextField userField, passwordField;
+    private JTextField userField;
+    private JPasswordField passwordField;
     private JButton enterButton;
 
     private JPanel usernamePanel, passwordPanel, enterButtonPanel, mainPanel, colouredPanel;
@@ -33,7 +34,7 @@ public class StartApp implements ActionListener
 
         userField = new JTextField();
         userField.setText("principal");
-        passwordField = new JTextField();
+        passwordField = new JPasswordField();
         passwordField.setText("123");
 
         enterButton = new JButton("Enter");
@@ -103,7 +104,10 @@ public class StartApp implements ActionListener
         }
         else
         {
-
+            mg.getMainFrame().dispose();
+            JOptionPane.showMessageDialog(null, "Your username or password is incorrect");
+            userField.setText("");
+            passwordField.setText("");
         }
         return null;
     }
