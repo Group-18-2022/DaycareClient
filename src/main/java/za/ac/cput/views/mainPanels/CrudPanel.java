@@ -160,7 +160,7 @@ public class CrudPanel
         backHomeBTN.addActionListener(al);
         logOutButton.addActionListener(al);
         updateButton.addActionListener(al);
-        printButton.addActionListener(al);
+        printButton.addActionListener(new HelloWorldPrinter());
     }
 
     public void imageMethod() {

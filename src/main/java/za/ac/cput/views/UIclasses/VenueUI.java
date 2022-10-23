@@ -11,6 +11,7 @@ import za.ac.cput.factory.DayCareVenueFactory;
 import za.ac.cput.StartApp;
 import za.ac.cput.views.consoleapp.ConsoleApp;
 import za.ac.cput.views.mainPanels.CrudPanel;
+import za.ac.cput.views.mainPanels.HelloWorldPrinter;
 import za.ac.cput.views.mainPanels.PrincipalPanel;
 
 import javax.swing.*;
@@ -323,6 +324,14 @@ public class VenueUI
                         modelListenerMethod();
                     }
                 }
+
+                if (e.getActionCommand().equalsIgnoreCase("print"))
+                {
+                    //new HelloWorldPrinter();
+
+
+                }
+
 
                 if (e.getActionCommand().equalsIgnoreCase("back home"))
                 {
